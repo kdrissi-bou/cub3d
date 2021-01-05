@@ -154,12 +154,11 @@ int		loop_key(void)
 	return (0);
 }
 
-int		main()
+int		main(int argc, char **argv)
 {
 
-
-	// parsing(argv[1]);
-    // (void)argc;
+//Start by reading the .cub
+	parsing(argc, argv);
 
 	
     g_player.x = WIN_SIZE/2;
