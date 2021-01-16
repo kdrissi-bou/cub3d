@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2020/12/24 15:42:01 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/16 16:54:30 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,20 @@ void	drawRay(int rx, int ry);
 void	drawPlayer(int x0, int y0, int radius);
 void	draw_line(int X0, int Y0, int X1, int Y1, int color);
 
-//! Parsing 
-typedef	struct	s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
+// //! Parsing 
+// typedef	struct	s_list
+// {
+// 	void			*content;
+// 	struct s_list	*next;
+// }				t_list;
 
-void parsing(char *argv);
+void	parsing(int argc, char **argv);
+int     check_args_number(int argc);
+void    error(char *str);
+void    check_extension(char *argv);
+void    line_checker(char *line);
 
-t_list				*g_file;
+// t_list				*g_file;
 
 
 #endif

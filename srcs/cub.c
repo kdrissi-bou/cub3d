@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2020/12/24 16:40:30 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:17:13 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,6 @@ int		loop_key(void)
 	draw_line(g_player.x, g_player.y,
 	g_player.x + cos(g_player.angle) * 150, g_player.y + sin(g_player.angle) * 150, 0xFF0000);
 
-	// 1 - TODO : WRITE A FUNCTION THAT STOP MY PLAYER TO GO INSIDE A WALL
-	// THE FUNCTION IS : WALL_COLLISION
 
 	// 2 - TODO : THEN DO RAYCASTING
 
