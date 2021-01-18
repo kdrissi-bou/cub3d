@@ -13,11 +13,8 @@ MLX =  -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 #all: $(NAME)
 
 all:
-	echo ranni hnna
 	make -C libft
-	echo ranni hnna
 	$(GCC) $(INCLUDE)  $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
-	echo ranni hnna
 
 clean:
 	

@@ -12,41 +12,59 @@
 
 #include "include/cub3d.h"
 
-int g_count;
+int         g_count;
+t_cub3d     g_info;
 
-int     lineIsDigit(char **line)
+int     line_is_digit(char **line)
 {
     int i;
     int j;
+
     i = 0;
-    
-    while(line[i] )
+    while(line[i])
     {
         j = 0;
         while(line[i][j])
         {
             if (!ft_isdigit(str[i][j]))
-                error("Error: Invalid resolution!")
+                error("Error: Letters in rosolution!")
             j++;
         }
         i++;
     }
+    return(i);
 }
 
-void    resolution(char *line)
+void    get_resolution(char *line)
 {
-    char **str;
+    int     i;
+    char    **str;
+    int     x;
+    int     y;
+
+    mlx_get_screen_size(g_mlx.mlx_ptr, &x, &y);
     str = ft_split(line,' ');
     if (str[0][0] == '-' || str[1][0] == '-')
-        error("Error: Wrong resolution inputs!")
-    if (lineIsDigit())
+        error("Error: Resolution inputs can not be negative!")
+    if (line_is_digit(str) != 2)
+        error("Error: Wrong resolution!");
+    else
     {
-        /* code */
-    }
-    
+		g_info.width = ft_atoi(str[0]);
+		g_info.height = ft_atoi(str[1]);
+		g_info.width = g_info.width > x ? x : g_info.width;
+		g_info.height = g_info.height > y ? y : g_info.height;
+        // Ask about This;
+		// g_info.width = g_info.width == -1 ? x : g_info.width;
+		// g_info.height = g_info.height == -1 ? y : g_info.height;
+		///!!!!!g_count++;
+    }  
 }
 
-
+void    get_paths(char *line)
+{
+    if ()
+}
 
 
 
@@ -61,16 +79,15 @@ void    line_checker(char *line)
     while (line[i] == ' ')
         i++;
     if (line[i] == 'R' && (line[++i] == ' ' || line[i] == '\t'))
-        resolution(&line[i]);
+        get_resolution(&line[i]);
     else if (line[i] == 'N' || line[i] == 'S'||line[i] == 'W' || line[i] == 'E')
-        paths(&line[i]);
+        get_paths(&line[i]);
     else if ((line[i] == 'F' && line[i + 1] != ' ') || (line[i] == 'C' && line[i + 1] != ' '))
         error("Error: Invalid line in file !");
     else if (line[i] == 'F' && (line[++i] == ' ' || line[i] == '\t'))
-        flooring(&line[i]);
+        get_flooring(&line[i]);
     else if (line[i] == 'C' && (line[++i] == ' ' || line[i] == '\t'))
-        ceiling(&line[i]);
-     
+        get_ceiling(&line[i]);    
 }
 
 // Here I start the parsing;
@@ -81,7 +98,7 @@ void    parsing(int argc, char **argv)
     char *line;
     int n;
 
-    g_count = 0;
+    g_count = 0;z  cjed
     n = 1;
     args_checker(argc, argv);
     
