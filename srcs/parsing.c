@@ -6,14 +6,14 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/16 17:18:17 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:52:47 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/cub3d.h"
+#include "../include/cub3d.h"
 
-int         g_count;
-t_cub3d     g_info;
+
+
 
 int     line_is_digit(char **line)
 {
@@ -26,8 +26,8 @@ int     line_is_digit(char **line)
         j = 0;
         while(line[i][j])
         {
-            if (!ft_isdigit(str[i][j]))
-                error("Error: Letters in rosolution!")
+            if (!ft_isdigit(line[i][j]))
+                error("Error: Letters in rosolution!");
             j++;
         }
         i++;
@@ -37,15 +37,14 @@ int     line_is_digit(char **line)
 
 void    get_resolution(char *line)
 {
-    int     i;
     char    **str;
     int     x;
     int     y;
 
-    mlx_get_screen_size(g_mlx.mlx_ptr, &x, &y);
-    str = ft_split(line,' ');
+    mlx_get_screen_size(g_data.mlx_ptr, &x, &y);
+    str = ft_split(line, ' ');
     if (str[0][0] == '-' || str[1][0] == '-')
-        error("Error: Resolution inputs can not be negative!")
+        error("Error: Resolution inputs can not be negative!");
     if (line_is_digit(str) != 2)
         error("Error: Wrong resolution!");
     else
@@ -57,15 +56,9 @@ void    get_resolution(char *line)
         // Ask about This;
 		// g_info.width = g_info.width == -1 ? x : g_info.width;
 		// g_info.height = g_info.height == -1 ? y : g_info.height;
-		///!!!!!g_count++;
+		g_count++;
     }  
 }
-
-void    get_paths(char *line)
-{
-    if ()
-}
-
 
 
 
@@ -73,7 +66,6 @@ void    get_paths(char *line)
 void    line_checker(char *line)
 {
     int     i;
-
     i = 0;
 
     while (line[i] == ' ')
@@ -94,15 +86,15 @@ void    line_checker(char *line)
 
 void    parsing(int argc, char **argv)
 {
-    int fd;
-    char *line;
-    int n;
+    int     fd;
+    char    *line;
+    int     n;
 
-    g_count = 0;z  cjed
+    g_count = 0;
     n = 1;
     args_checker(argc, argv);
-    
-    if(fd = open(argv[1],O_RDONLY))
+    fd = open(argv[1],O_RDONLY);
+    if(fd == -1)
         error("Error: something went wrong!");
     line = NULL;
     while (n != 0)

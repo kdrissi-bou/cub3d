@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/16 17:17:13 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:54:50 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		key_released(int key)
 	return (0);
 }
 // WALL COLLISION PART	
-int		hasWallAt(int **map)
+int		has_wall_at()
 {
 	float	newPlayerx;
 	float	newPlayery;
@@ -86,14 +86,14 @@ int		hasWallAt(int **map)
 	newPlayery = g_player.y + sin(g_player.angle) * MOVEMENT_SPEED;
 	newPlayerx = g_player.x + cos(g_player.angle) * MOVEMENT_SPEED;
 	mapIndexX  = floor(newPlayerx / 24);
-	mapIndexY  =
+	// mapIndexY  =
 	
 	if(newPlayerx < 0 ||newPlayerx > WIN_SIZE || newPlayery < 0 || newPlayery > WIN_SIZE)
 		return (1);
 	return(0);
 	
 }
-int		hasWallAt1()
+int		has_wall_at1()
 {
 	float	newPlayerx;
 	float	newPlayery;
@@ -116,19 +116,19 @@ int		loop_key(void)
 	// MLX HOOK
 	// PUT IMAGE
 	mlx_put_image_to_window(g_data.mlx_ptr, g_data.win_ptr, g_data.img_ptr, 0, 0);
-	// if (hasWallAt() == 0)
+	// if (has_wall_at() == 0)
 	// {
 	// 1 - TO DO : MAKE THE PLAYER MOVE ON X, Y AXIS DEPENDING ON THE ANGLE
 		if (g_key.up == 1)
 		{
-	 	if (hasWallAt() == 0)
+	 	if (has_wall_at() == 0)
 			{g_player.y += sin(g_player.angle) * MOVEMENT_SPEED;
 			g_player.x += cos(g_player.angle) * MOVEMENT_SPEED;}
 		}
 		
 		if (g_key.down == 1)
 		{
-			if (hasWallAt1() == 0)
+			if (has_wall_at1() == 0)
 			{g_player.y -= sin(g_player.angle) * MOVEMENT_SPEED;
 			g_player.x -= cos(g_player.angle) * MOVEMENT_SPEED;}
 		}
@@ -140,8 +140,8 @@ int		loop_key(void)
 		g_player.angle += ROTATION_SPEED;
 
 
-    drawMap(0,0); // DRAW MAP
-    drawPlayer(g_player.x, g_player.y, 5); // DRAW PLAYER
+    draw_map(0,0); // DRAW MAP
+    draw_player(g_player.x, g_player.y, 5); // DRAW PLAYER
 	draw_line(g_player.x, g_player.y,
 	g_player.x + cos(g_player.angle) * 150, g_player.y + sin(g_player.angle) * 150, 0xFF0000);
 
@@ -157,19 +157,17 @@ int		main(int argc, char **argv)
 
 //Start by reading the .cub
 	parsing(argc, argv);
-
-	
     g_player.x = WIN_SIZE/2;
     g_player.y = WIN_SIZE/2;
-    g_player.angle = normalize_angle(M_PI / 2); // PLAYER ANGLE
+    g_player.angle = normalize_angle(M_PI / 2);// PLAYER ANGLE
     g_data.mlx_ptr = mlx_init();
     g_data.win_ptr = mlx_new_window(g_data.mlx_ptr, WIN_SIZE, WIN_SIZE, "kaw-kab");
 	g_data.img_ptr = mlx_new_image(g_data.mlx_ptr, WIN_SIZE, WIN_SIZE);
 	mlx_hook(g_data.win_ptr, 2, 0, key_pressed, 0);
 	mlx_hook(g_data.win_ptr, 3, 0, key_released, 0);
 
-    drawMap(0,0); // DRAW MAP
-    drawPlayer(g_player.x, g_player.y, 2); // DRAW PLAYER
+    draw_map(0,0);// DRAW MAP
+    draw_player(g_player.x, g_player.y, 2);// DRAW PLAYER
 
 	mlx_loop_hook(g_data.mlx_ptr, loop_key, 0);
     mlx_loop(g_data.mlx_ptr);

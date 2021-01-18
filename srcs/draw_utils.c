@@ -1,7 +1,7 @@
 #include "../include/cub3d.h"
 
 // DRAW A CIRCLE FOR MY PLAYER
-void	drawPlayer(int x0, int y0, int radius)
+void	draw_player(int x0, int y0, int radius)
 {
     int x = radius;
     int y = 0;
@@ -60,7 +60,7 @@ void	draw_line(int X0, int Y0, int X1, int Y1, int color)
 }
 
 // DRAW SQ
-void	drawSquare(int width, int height, int x, int y)
+void	draw_square(int width, int height, int x, int y)
 {
     int i;
     int j;
@@ -85,7 +85,7 @@ void	drawSquare(int width, int height, int x, int y)
     }
 }
 
-void    drawMap(int mapx, int mapy)
+void    draw_map(int mapx, int mapy)
 {   
     int i;
     int j;
@@ -103,7 +103,7 @@ void    drawMap(int mapx, int mapy)
         while(j < 24)
         {
             if(worldMap[i][j] != 0)
-                drawSquare(var,var,Mx, My);
+                draw_square(var,var,Mx, My);
             My +=var;
             j++;
         }

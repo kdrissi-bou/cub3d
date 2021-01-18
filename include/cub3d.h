@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/16 16:54:30 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:53:30 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef	struct s_cub3d
 }				t_cub3d;
 
 
-
+int         g_count;
 // PLAYER
 # define MOVEMENT_SPEED 5
 # define ROTATION_SPEED 0.06
@@ -92,27 +92,34 @@ t_player	g_player;
 t_key		g_key;
 
 // FUNCTION PROTOTYPES
-void	drawSquare(int width, int height, int x, int y);
-int		buttons(int key, void *param);
-void	drawMap(int mapx, int mapy);
-void	drawRay(int rx, int ry);
-void	drawPlayer(int x0, int y0, int radius);
-void	draw_line(int X0, int Y0, int X1, int Y1, int color);
 
+void	draw_square(int width, int height, int x, int y);
+int		buttons(int key, void *param);
+void	draw_map(int mapx, int mapy);
+void	drawRay(int rx, int ry);
+void	draw_player(int x0, int y0, int radius);
+void	draw_line(int X0, int Y0, int X1, int Y1, int color);
+void    store_path(char *line, int cor);
+void	get_flooring(char *);;
+void	parsing(int argc, char **argv);
+int     check_args_number(int argc);
+void    error(char *str);
+void    check_extension(char *argv);
+void    line_checker(char *line);
+void	args_checker(int argc, char **argv);
+void	get_ceiling(char *line); 
+void	get_paths(char *line);
+
+
+
+
+t_cub3d     g_info;
+// t_list				*g_file;
 // //! Parsing 
 // typedef	struct	s_list
 // {
 // 	void			*content;
 // 	struct s_list	*next;
 // }				t_list;
-
-void	parsing(int argc, char **argv);
-int     check_args_number(int argc);
-void    error(char *str);
-void    check_extension(char *argv);
-void    line_checker(char *line);
-
-// t_list				*g_file;
-
 
 #endif
