@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/18 19:53:30 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/27 19:25:05 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # define RT_ARROW 124
 # define WIN_SIZE 792
 # define MAP_SIZE 24
-
+# define MOVEMENT_SPEED 5
+# define ROTATION_SPEED 0.06
 
 
 
@@ -55,11 +56,14 @@ typedef	struct s_cub3d
 	t_rgb 			f;
 }				t_cub3d;
 
-
+typedef	struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 int         g_count;
 // PLAYER
-# define MOVEMENT_SPEED 5
-# define ROTATION_SPEED 0.06
+
 
 int		worldMap[24][24];
 
@@ -102,24 +106,21 @@ void	draw_line(int X0, int Y0, int X1, int Y1, int color);
 void    store_path(char *line, int cor);
 void	get_flooring(char *);;
 void	parsing(int argc, char **argv);
-int     check_args_number(int argc);
+void    check_args_number(int argc);
 void    error(char *str);
 void    check_extension(char *argv);
 void    line_checker(char *line);
 void	args_checker(int argc, char **argv);
 void	get_ceiling(char *line); 
 void	get_paths(char *line);
+void    map_treatment(void);
+int     map_starts_here(char *line);
 
 
 
 
 t_cub3d     g_info;
-// t_list				*g_file;
-// //! Parsing 
-// typedef	struct	s_list
-// {
-// 	void			*content;
-// 	struct s_list	*next;
-// }				t_list;
+t_list				*g_file;
+
 
 #endif

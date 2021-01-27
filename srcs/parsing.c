@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/18 19:52:47 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/27 19:19:32 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,10 @@ void    parsing(int argc, char **argv)
     {
         n = get_next_line(fd, &line);
         line_checker(line);
-    }      
+        ft_lstadd_back(&g_file, ft_lstnew(line));
+		free(line);
+    }
+    map_treatment();
+        
+    
 }
