@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/27 19:25:05 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/30 17:34:13 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@
 # define DW_ARROW 125
 # define LF_ARROW 123
 # define RT_ARROW 124
-# define WIN_SIZE 792
+# define W_KEY 13
+# define A_KEY 0
+# define S_KEY 1
+# define D_KEY 2
+# define ESC 53
+# define WIN_WIDTH g_inputs.width
+# define WIN_HEIGHT g_inputs.height
 # define MAP_SIZE 24
 # define MOVEMENT_SPEED 5
 # define ROTATION_SPEED 0.06
@@ -61,18 +67,13 @@ typedef	struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
-int         g_count;
-// PLAYER
 
-
-int		worldMap[24][24];
-
-typedef struct	s_data
+typedef struct	s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
-}				t_data;
+}				t_mlx;
 
 typedef struct	s_player
 {
@@ -91,9 +92,12 @@ typedef struct	s_key
 	int		left;
 }				t_key;
 
-t_data		g_data;
+t_mlx		g_mlx;
 t_player	g_player;
 t_key		g_key;
+int         g_count;
+t_cub3d     g_inputs;
+t_list		*g_file;
 
 // FUNCTION PROTOTYPES
 
@@ -117,10 +121,4 @@ void    map_treatment(void);
 int     map_starts_here(char *line);
 
 
-
-
-t_cub3d     g_info;
-t_list				*g_file;
-
-
-#endif
+#endif 

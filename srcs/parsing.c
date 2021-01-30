@@ -6,14 +6,11 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/27 19:19:32 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/30 17:34:13 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-
-
 
 int     line_is_digit(char **line)
 {
@@ -41,7 +38,7 @@ void    get_resolution(char *line)
     int     x;
     int     y;
 
-    mlx_get_screen_size(g_data.mlx_ptr, &x, &y);
+    mlx_get_screen_size(g_mlx.mlx_ptr, &x, &y);
     str = ft_split(line, ' ');
     if (str[0][0] == '-' || str[1][0] == '-')
         error("Error: Resolution inputs can not be negative!");
@@ -49,13 +46,12 @@ void    get_resolution(char *line)
         error("Error: Wrong resolution!");
     else
     {
-		g_info.width = ft_atoi(str[0]);
-		g_info.height = ft_atoi(str[1]);
-		g_info.width = g_info.width > x ? x : g_info.width;
-		g_info.height = g_info.height > y ? y : g_info.height;
-        // Ask about This;
-		// g_info.width = g_info.width == -1 ? x : g_info.width;
-		// g_info.height = g_info.height == -1 ? y : g_info.height;
+		g_inputs.width = ft_atoi(str[0]);
+		g_inputs.height = ft_atoi(str[1]);
+		g_inputs.width = g_inputs.width > x ? x : g_inputs.width;
+		g_inputs.height = g_inputs.height > y ? y : g_inputs.height;
+		// g_inputs.width = g_inputs.width == -1 ? x : g_inputs.width;
+		// g_inputs.height = g_inputs.height == -1 ? y : g_inputs.height;
 		g_count++;
     }  
 }
@@ -104,6 +100,8 @@ void    parsing(int argc, char **argv)
         ft_lstadd_back(&g_file, ft_lstnew(line));
 		free(line);
     }
+    if(g_count == 8)
+        error("ERROR WRONG NUMBER OF INPUTS");
     map_treatment();
         
     

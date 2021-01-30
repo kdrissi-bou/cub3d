@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/18 19:54:50 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/01/30 17:31:26 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		loop_key(void)
 {
 	// MLX HOOK
 	// PUT IMAGE
-	mlx_put_image_to_window(g_data.mlx_ptr, g_data.win_ptr, g_data.img_ptr, 0, 0);
+	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_mlx.img_ptr, 0, 0);
 	// if (has_wall_at() == 0)
 	// {
 	// 1 - TO DO : MAKE THE PLAYER MOVE ON X, Y AXIS DEPENDING ON THE ANGLE
@@ -160,15 +160,15 @@ int		main(int argc, char **argv)
     g_player.x = WIN_SIZE/2;
     g_player.y = WIN_SIZE/2;
     g_player.angle = normalize_angle(M_PI / 2);// PLAYER ANGLE
-    g_data.mlx_ptr = mlx_init();
-    g_data.win_ptr = mlx_new_window(g_data.mlx_ptr, WIN_SIZE, WIN_SIZE, "kaw-kab");
-	g_data.img_ptr = mlx_new_image(g_data.mlx_ptr, WIN_SIZE, WIN_SIZE);
-	mlx_hook(g_data.win_ptr, 2, 0, key_pressed, 0);
-	mlx_hook(g_data.win_ptr, 3, 0, key_released, 0);
+    g_mlx.mlx_ptr = mlx_init();
+    g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, WIN_SIZE, WIN_SIZE, "kaw-kab");
+	g_mlx.img_ptr = mlx_new_image(g_mlx.mlx_ptr, WIN_SIZE, WIN_SIZE);
+	mlx_hook(g_mlx.win_ptr, 2, 0, key_pressed, 0);
+	mlx_hook(g_mlx.win_ptr, 3, 0, key_released, 0);
 
     draw_map(0,0);// DRAW MAP
     draw_player(g_player.x, g_player.y, 2);// DRAW PLAYER
 
-	mlx_loop_hook(g_data.mlx_ptr, loop_key, 0);
-    mlx_loop(g_data.mlx_ptr);
+	mlx_loop_hook(g_mlx.mlx_ptr, loop_key, 0);
+    mlx_loop(g_mlx.mlx_ptr);
 }

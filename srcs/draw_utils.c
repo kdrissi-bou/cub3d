@@ -13,13 +13,13 @@ void	draw_player(int x0, int y0, int radius)
     {
         for (int i = x0 - x; i <= x0 + x; i++)
         {
-            mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, i, y0 + y, 0xFFFF00); 
-            mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, i, y0 - y, 0xFFFF00); 
+            mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, i, y0 + y, 0xFFFF00); 
+            mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, i, y0 - y, 0xFFFF00); 
         }
         for (int i = x0 - y; i <= x0 + y; i++)
         {
-            mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, i, y0 + x, 0xFFFF00); 
-            mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, i, y0 - x, 0xFFFF00); 
+            mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, i, y0 + x, 0xFFFF00); 
+            mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, i, y0 - x, 0xFFFF00); 
         }
 
         y++;
@@ -53,7 +53,7 @@ void	draw_line(int X0, int Y0, int X1, int Y1, int color)
     float Y = Y0; 
     for (int i = 0; i <= steps; i++) 
     { 
-        mlx_pixel_put (g_data.mlx_ptr, g_data.win_ptr, X, Y, color);  // put pixel at (X,Y) 
+        mlx_pixel_put (g_mlx.mlx_ptr, g_mlx.win_ptr, X, Y, color);  // put pixel at (X,Y) 
         X += Xinc;           // increment in x at each step 
         Y += Yinc;           // increment in y at each step  
     } 
@@ -76,7 +76,7 @@ void	draw_square(int width, int height, int x, int y)
         j = 0;
       while(j <= width)
        {
-           mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, k, l, 0xFFFFFF);
+           mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, k, l, 0xFFFFFF);
            k++;
            j++;
        }
@@ -130,14 +130,14 @@ void    draw_map(int mapx, int mapy)
 //     ry = player.py;
 //     int i=0;
 //     // printf("[%f]\n", player.pa);
-//     mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, player.px, player.py, 0xFFFFFF);
+//     mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, player.px, player.py, 0xFFFFFF);
 //     float newx = rx + 20;
 //     float newy = ry+ (sin(player.pa) * 20);
 
 //     DDA(rx, ry, newx, newy);
 // //     while(i <= 40)
 // //     {
-// //     mlx_pixel_put(g_data.mlx_ptr, g_data.win_ptr, rx, ry, 0xFFFFFF);
+// //     mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, rx, ry, 0xFFFFFF);
 // //     i++;
 // //     rx += cos(player.pa)*3;
 // //     ry += sin(player.pa)*3;
