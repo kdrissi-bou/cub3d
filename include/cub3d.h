@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/30 17:34:13 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/03 16:27:05 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ t_key		g_key;
 int         g_count;
 t_cub3d     g_inputs;
 t_list		*g_file;
+int			g_columns;
+int			g_rows;
+char		**g_map;
 
 // FUNCTION PROTOTYPES
 
@@ -119,6 +122,7 @@ void	get_ceiling(char *line);
 void	get_paths(char *line);
 void    map_treatment(void);
 int     map_starts_here(char *line);
+void    map_debut(void);
 
 
 #endif 
