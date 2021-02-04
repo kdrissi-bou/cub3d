@@ -14,7 +14,7 @@
 
 static int		g_p;
 static int		g_i;
-static t_list	*g_temp;
+static t_list	*g_head;
 
 int     map_first_digit(char *line)
 {
@@ -27,13 +27,14 @@ int     map_first_digit(char *line)
         return(1);
     return(0);
 }
-void     map_debut(void)
+void    map_debut(void)
 {
-    while(g_file)
+    g_head = g_file;
+    while(g_head)
     {
-        if(map_first_digit((char *)g_file->content))
+        if(map_first_digit((char *)g_head->content))
             break;
-        g_file = g_file->next;
+        g_head = g_head->next;
     }
 }
 
@@ -41,44 +42,58 @@ static void     map_first_init(void)
 {
     g_p = 0;
 	g_columns = 0;
-	g_rows = 0;
-	g_temp = g_file;
+	g_rows = 2;
 } 
   
 void    map_size(void)
 {
-    while (g_temp)
+    t_list *temp;
+
+    temp = g_head;
+    while (temp)
 	{
-		if (map_first_digit(g_temp->content))
+		if (map_first_digit(temp->content))
 		{
 			g_rows++;
-			if (ft_strlen(g_temp->content) > (size_t)g_columns)
-				g_columns = ft_strlen(g_temp->content);
+			if (ft_strlen(temp->content) > (size_t)g_columns)
+				g_columns = ft_strlen(temp->content);
 		}
-		g_temp = g_temp->next;
+        else 
+            error("error map_size/n");
+		temp = temp->next;
 	}
 }
+
 void    map_second_init(void)
 {
-    g_rows += 2;
     g_columns += 2;
 	
 	if (!(g_map = (char **)malloc(sizeof(char *) * (g_rows + 1))))
-		return ;
-	ft_memset(g_map[0],' ',g_columns);      
+		error("error map_second_init maloc") ;  
 	g_i = 1;
 }
 
-void    map_filling(void)
+void    spacer(void)
 {
-    while (g_file)
+    while(g_i <= g_rows)
+        {
+                if (!(g_map[g_i] = (char *)malloc(sizeof(char) * (g_columns + 1))))
+		            error("error spacer\n");
+                ft_memset(g_map[g_i], ' ', g_columns));
+                g_map[g_i][g_columns + 1] = '\0';
+            g_i++;
+        } 
+
+
+void    map_filling(void)
+{ 
+    spacer();
+    g_i = 1;
+    while (g_head)
 	{
-        ft_me   mset(g_map[i],'')
-		if (map_first_digit(g_file->content))
-			g_map[g_i++] = spacer(g_file->content, g_columns);
-		g_file = g_file->next;
+		g_map[g_i++] = ft_memcpy(g_map[g_i] + 1, g_head->content,strlen(g_map[g_i]));
+		g_head = g_head->next;
 	}
-	g_map[g_i++] = ft_memset(g_map[g_i],' ',g_columns);  
 	g_map[g_i] = NULL;
 }
 
