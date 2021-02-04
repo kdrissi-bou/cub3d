@@ -24,7 +24,9 @@ void    get_paths(char *line)
         g_inputs.we = ft_substr(line, path_start(line, 3), ft_strlen(line));
     else if (!ft_strncmp(line,"EA ",3) || !ft_strncmp(line, "EA\t", 3))
         g_inputs.ea = ft_substr(line, path_start(line, 3), ft_strlen(line));
+    else if(!ft_strncmp(line,"S ",2) || !ft_strncmp(line, "S \t", 3))
+        g_inputs.s = ft_substr(line, path_start(line, 3), ft_strlen(line));
     else 
-        error("ERROR!");
+        error("ERROR! get_paths");
     g_count +=10;
 }

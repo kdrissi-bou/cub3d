@@ -1,5 +1,6 @@
 #include "../include/cub3d.h"
 
+extern int worldMap[24][24];
 // DRAW A CIRCLE FOR MY PLAYER
 void	draw_player(int x0, int y0, int radius)
 {

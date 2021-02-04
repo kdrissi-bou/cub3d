@@ -70,36 +70,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	while (lst && *lst)
 	{
 		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		//ft_lstdelone(*lst, del);
 		*lst = tmp;
 	}  
-}
-
-void        parrsing(char *argv)
-{
-    int     ret;
-    g_file = NULL;
-    char    *line;
-    int fd = open(argv, O_RDONLY);
-    ret = 1;
-     while((ret = get_next_line(fd, &line)))
-    {
-        ft_lstadd_back(&g_file, ft_lstnew(line));
-    }
-
-
-    t_list *tmp;
-    tmp = g_file;
-    char *f;
-    while(tmp)
-    {
-        f = tmp->content;
-        printf("|%s|\n",f);
-        tmp = tmp->next;
-    }
-
-
-    
-    exit(79);
-    
 }

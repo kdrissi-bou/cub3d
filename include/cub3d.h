@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 
+#define WIN_SIZE 500
 # define UP_ARROW 126
 # define DW_ARROW 125
 # define LF_ARROW 123
@@ -39,7 +40,7 @@
 # define ROTATION_SPEED 0.06
 
 
-
+ 
 
 typedef struct 		s_rgb
 {
@@ -123,6 +124,12 @@ void	get_paths(char *line);
 void    map_treatment(void);
 int     map_starts_here(char *line);
 void    map_debut(void);
+void	ft_lstadd_back(t_list **alst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_front(t_list **alst, t_list *new);
+t_list	*ft_lstnew(void *content);
+void	ft_lstclear(t_list **lst, void (*del)(void*));
+
 
 
 #endif 

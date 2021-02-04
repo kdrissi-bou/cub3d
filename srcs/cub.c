@@ -12,8 +12,8 @@
 
 #include "../include/cub3d.h"
 
-int worldMap[24][24]=
-{
+
+int worldMap[24][24] = {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -80,12 +80,12 @@ int		has_wall_at()
 {
 	float	newPlayerx;
 	float	newPlayery;
-	int		mapIndexX;
-	int		mapIndexY;
+	//float		mapIndexX;
+
 	
 	newPlayery = g_player.y + sin(g_player.angle) * MOVEMENT_SPEED;
 	newPlayerx = g_player.x + cos(g_player.angle) * MOVEMENT_SPEED;
-	mapIndexX  = floor(newPlayerx / 24);
+	//mapIndexX  = floor(newPlayerx / 24);
 	// mapIndexY  =
 	
 	if(newPlayerx < 0 ||newPlayerx > WIN_SIZE || newPlayery < 0 || newPlayery > WIN_SIZE)
@@ -154,8 +154,6 @@ int		loop_key(void)
 
 int		main(int argc, char **argv)
 {
-
-//Start by reading the .cub
 	parsing(argc, argv);
     g_player.x = WIN_SIZE/2;
     g_player.y = WIN_SIZE/2;
