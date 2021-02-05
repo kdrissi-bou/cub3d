@@ -14,7 +14,15 @@
 
 static int		g_p;
 static t_list	*g_head;
-
+void    print_map(void)
+{
+    int i = 0;
+    while(g_map[i])
+    {
+        printf("%s\n",g_map[i]);
+        i++;
+    }
+}
 int     map_first_digit(char *line)
 {
     int i = 0; 
@@ -90,16 +98,25 @@ void    spacer(void)
 void    map_filling(void)
 { 
     int i;
+    int j;
     i = 1;
+
+
     spacer();
-    
     while (g_head)
 	{
-		g_map[i] = ft_memcpy(g_map[i] + 1, g_head->content,ft_strlen(g_map[i]));
+        j = 0;
+		while (((char *)(g_head->content))[j])
+        {
+            g_map[i][j+1] = ((char*)(g_head->content))[j];
+
+            j++;
+        }
+    
 		g_head = g_head->next;
         i++;
 	}
-	g_map[i] = NULL;
+    g_map[g_rows] = NULL;
 }
 
 
@@ -109,7 +126,7 @@ int				map_errors(void)
 	int		j;
     int     i;
 
-	i = 0;
+	i = 1;
 	while (++i < g_rows)
 	{
 		j = -1;
@@ -117,13 +134,18 @@ int				map_errors(void)
 		{
 			if (g_map[i][j] == 'N' || g_map[i][j] == 'S'|| g_map[i][j] == 'W' || g_map[i][j] == 'E')
 				g_p++;
-			if (g_map[i][j] == '0' || g_map[i][j] == 'N' || g_map[i][j] == 'S' || g_map[i][j] == 'W' || g_map[i][j] == 'E' || g_map[i][j] == '2')
+			if (ft_strchr("0NSWE2",g_map[i][j]))
 			{
 				if (g_map[i - 1][j] == ' ' || g_map[i][j - 1] == ' ' || g_map[i + 1][j] == ' ' || g_map[i][j + 1] == ' ')
-					error("Error\nMultiple or no players or Invalid map!\n");
+                {  printf("%d %d\n",i,j);
+					error("Error\n check spaces !\n");
+                }
 			}
-			else if (g_map[i][j] != '0' && g_map[i][j] != 'N' && g_map[i][j] != 'S' && g_map[i][j] != 'W' && g_map[i][j] != 'E'&& g_map[i][j] != '2' && g_map[i][j] != '1' && g_map[i][j] != ' ')
+			else if (!(ft_strchr("0NSWE21 ",g_map[i][j])))
+            {
+                printf("%c %d %d",g_map[i][j],i,j);
 				error("Error\nMultiple or no players or Invalid map!\n");
+            }
 		}
 	}
 	return (0);
@@ -136,6 +158,7 @@ void    map_treatment(void)
     map_size();
     map_second_init();
     map_filling();
+    print_map();
     //free_list();
     map_errors();
 }
