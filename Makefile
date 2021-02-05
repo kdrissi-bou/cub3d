@@ -1,7 +1,7 @@
 
 NAME = cub3D
 
-SRCS = srcs/*.c
+SRCS = srcs/cub.c     srcs/draw_utils.c     srcs/linked_list_fc.c  parsing/args-checker.c parsing/get_map.c      parsing/get_paths.c    parsing/parsing.c
 
 LIBFT = ./libft/libft.a
 
