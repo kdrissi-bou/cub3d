@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args-checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 15:13:01 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/18 19:58:00 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/06 22:08:46 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,30 @@ int g_save;
 
 // Function to print the error;
 
-void    error(char *str)
+void    error(char *err_msg,char **str)
 {
-    ft_putstr_fd(str, 2);
+    free_str_array(str);
+    ft_lst_clear(&g_file);
+    clean_up();
+    ft_putstr_fd(err_msg, 2);
     exit(-1);
 }
-
+void    clean_up(void)
+{
+    free(g_inputs->no);
+    free(g_inputs->so);
+    free(g_inputs->we);
+    free(g_inputs->ea);
+    free(g_inputs->s);
+    free(g_inputs);
+    free_str_array(g_map);
+}
 // Number of args should be equal to 2 or 3:  exec + .cub + --save;
 
 void     check_args_number(int argc)
 {
     if (argc < 2 || argc > 3)
-        error("Error: Invalid  number of arguments!");
+        error("Error: Invalid  number of arguments!",NULL);
 }
 
 // check if the file is a .cub;
@@ -35,14 +47,14 @@ void     check_args_number(int argc)
 void    check_extension(char *argv)
 {
     if((ft_strncmp(ft_strrchr(argv, '.'),".cub", 6)))
-        error("Error: Invalid extension!");
+        error("Error: Invalid extension!", NULL);
 }
 
 // check if second arg is --save;
 void    check_second_arg(int argc, char *argv)
 {
     if (argc == 3 && ft_strncmp(&argv[2],"--save", 10))
-        error("Error: Invalid second argument!");
+        error("Error: Invalid second argument!",NULL);
     g_save = 1;
 }
 

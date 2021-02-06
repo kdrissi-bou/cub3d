@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/03 16:27:05 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/06 21:58:54 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ t_mlx		g_mlx;
 t_player	g_player;
 t_key		g_key;
 int         g_count;
-t_cub3d     g_inputs;
+t_cub3d     *g_inputs;
 t_list		*g_file;
 int			g_columns;
 int			g_rows;
 char		**g_map;
-
+int			g_save;
 // FUNCTION PROTOTYPES
 
 void	draw_square(int width, int height, int x, int y);
@@ -115,7 +115,7 @@ void    store_path(char *line, int cor);
 void	get_flooring(char *);;
 void	parsing(int argc, char **argv);
 void    check_args_number(int argc);
-void    error(char *str);
+void    error(char *err_msg, char **str);
 void    check_extension(char *argv);
 void    line_checker(char *line);
 void	args_checker(int argc, char **argv);
@@ -128,7 +128,8 @@ void	ft_lstadd_back(t_list **alst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_front(t_list **alst, t_list *new);
 t_list	*ft_lstnew(void *content);
-void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lst_clear(t_list **lst);
+void    clean_up(void);
 
 
 

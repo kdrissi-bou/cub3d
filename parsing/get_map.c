@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:18 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/03 17:11:03 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/07 00:02:02 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int		g_p;
 static t_list	*g_head;
+
 void    print_map(void)
 {
     int i = 0;
@@ -36,6 +37,7 @@ int     map_first_digit(char *line)
     }
     return(0);
 }
+
 void    map_debut(void)
 {
     g_head = g_file;
@@ -47,12 +49,7 @@ void    map_debut(void)
     }
 }
 
-static void     map_first_init(void)
-{
-    g_p = 0;
-	g_columns = 0;
-	g_rows = 2;
-} 
+
   
 void    map_size(void)
 {
@@ -68,17 +65,18 @@ void    map_size(void)
 				g_columns = ft_strlen(temp->content);
 		}
         else 
-            error("error map_size\n");
+            error("error map_size\n", NULL);
 		temp = temp->next;
 	}
 }
 
 void    map_second_init(void)
 {
+    g_p = 0;
     g_columns += 2;
 	
 	if (!(g_map = (char **)malloc(sizeof(char *) * (g_rows + 1))))
-		error("error map_second_init maloc");
+		error("error map_second_init maloc",NULL);
 }
 
 void    spacer(void)
@@ -88,7 +86,7 @@ void    spacer(void)
     while(i <= g_rows)
         {
             if (!(g_map[i] = (char *)malloc(sizeof(char) * (g_columns + 1))))
-		        error("error spacer\n");
+		        error("error spacer\n",NULL);
             ft_memset(g_map[i], ' ', g_columns);
             g_map[i][g_columns + 1] = '\0';
             i++;
@@ -138,13 +136,13 @@ int				map_errors(void)
 			{
 				if (g_map[i - 1][j] == ' ' || g_map[i][j - 1] == ' ' || g_map[i + 1][j] == ' ' || g_map[i][j + 1] == ' ')
                 {  printf("%d %d\n",i,j);
-					error("Error\n check spaces !\n");
+					error("Error\n check spaces !\n", NULL);
                 }
 			}
 			else if (!(ft_strchr("0NSWE21 ",g_map[i][j])))
             {
                 printf("%c %d %d",g_map[i][j],i,j);
-				error("Error\nMultiple or no players or Invalid map!\n");
+				error("Error\nMultiple or no players or Invalid map!\n", NULL);
             }
 		}
 	}
@@ -153,12 +151,10 @@ int				map_errors(void)
 
 void    map_treatment(void)
 {
-    map_debut();
-    map_first_init();
+    map_debut();;
     map_size();
     map_second_init();
     map_filling();
     print_map();
-    //free_list();
     map_errors();
 }

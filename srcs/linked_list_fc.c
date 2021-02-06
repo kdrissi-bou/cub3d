@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_fc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:12:03 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/01/24 11:39:12 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/06 21:35:20 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,18 @@ t_list	*ft_lstnew(void *content)
 	return (elt);
 }
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
-{
-	t_list	*tmp;
 
-	if (!del || !lst || !*lst)
-		return ;
-	while (lst && *lst)
+void	ft_lst_clear(t_list **lst)
+{
+	t_list *tmp;
+	if(!lst || !*lst)
+		return;
+
+	while(lst && *lst)
 	{
 		tmp = (*lst)->next;
-		//ft_lstdelone(*lst, del);
+		free(((*lst)->content));
+		free(*lst);
 		*lst = tmp;
-	}  
+	}
 }
