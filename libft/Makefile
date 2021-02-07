@@ -21,9 +21,9 @@ $(NAME):
 
 clean:
 	/bin/rm -f $(OBJS)
-#linux:
-#	gcc -Wall -Werror -Wextra -c $(SRCS)
-	#ar rcs $(NAME) $(OBJS)
+linux:
+	gcc -Wall -Werror -Wextra -c $(SRCS)
+	ar rcs $(NAME) $(OBJS)
 fclean: clean
 	/bin/rm -f $(NAME)
 

@@ -6,21 +6,12 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:57:28 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/06 22:09:36 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/07 23:08:25 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-void    free_str_array(char **str)
-{
-    int i;
-    i = 0;
-    if(str == NULL)
-        return;
-    while(str[i])
-        free(str[i++]);
-    free(str);
-}
+
 void    get_resolution(char *line)
 {
     static int dup = 0;
@@ -29,12 +20,10 @@ void    get_resolution(char *line)
     int     y;
     x = 1370;
     y = 720;
-    if(dup = 0)
+    if(dup == 0)
     {
         //mlx_get_screen_size(g_mlx.mlx_ptr, &x, &y);
         str = ft_split(line + 1, ' ');
-        if (str[0][0] == '-' || str[1][0] == '-')
-            error("Error: Resolution inputs can not be negative!",str);
         if (line_is_digit(str) != 2)
             error("Error: Wrong resolution!", str);
         else

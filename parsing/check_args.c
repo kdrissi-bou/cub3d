@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args-checker.c                                     :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 15:13:01 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/06 22:08:46 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/07 21:31:35 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int g_save;
 
 void    error(char *err_msg,char **str)
 {
-    free_str_array(str);
+    //free_str_array(str);
     ft_lst_clear(&g_file);
     clean_up();
     ft_putstr_fd(err_msg, 2);
@@ -32,7 +32,7 @@ void    clean_up(void)
     free(g_inputs->ea);
     free(g_inputs->s);
     free(g_inputs);
-    free_str_array(g_map);
+   // free_str_array(g_map);
 }
 // Number of args should be equal to 2 or 3:  exec + .cub + --save;
 

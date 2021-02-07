@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/06 21:58:54 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/07 21:46:54 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,23 @@ void	ft_lstadd_front(t_list **alst, t_list *new);
 t_list	*ft_lstnew(void *content);
 void	ft_lst_clear(t_list **lst);
 void    clean_up(void);
+void    free_str_array(char **str);
+int		map_first_digit(char *line);
+void    spacer(void);
+int     skip_spaces(char *line, int i);
+int     line_is_digit(char **line);
+void    get_resolution(char *line);
+void    get_sprite(char *line);
+void    get_south(char *line);
+void    get_east(char *line);
+void    get_west(char *line);
+void    get_north(char *line);
+void	store_rgb(char **str, char type);
+void	get_ceiling(char *line);
+void	get_flooring(char *line);
+void    check_comma(char *line);
+int    line_is_empty(char *line);
+void	print_map(void);
 
 
-
-#endif 
+#endif

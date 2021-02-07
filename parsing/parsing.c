@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/06 23:48:04 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/07 22:26:37 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	line_checker(char *line)
 	else if (!ft_strncmp(line, "S ", 2))
 		get_sprite(line);
 	else if (!ft_strncmp(line, "F ", 2))
-		get_floor_ceiling(line, 'f');
+		get_flooring(line);
 	else if (!ft_strncmp(line, "C ", 2))
-		get_floor_ceiling(line, 'c');
+		get_ceiling(line);
 	else if (line_is_empty(line) || map_first_digit(line))
 		return ;
 	else
-		error("error", NULL);
+		error("error line_checker", NULL);
 }

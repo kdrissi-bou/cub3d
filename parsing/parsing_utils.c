@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:37:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/06 23:06:56 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/07 23:02:45 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    check_comma(char *line)
         if(line[i]==',')
             j++;
         if(j > 2)
-            error("error: check_comma\n");
+            error("error: check_comma\n", NULL);
         i++;
     }
 }
@@ -31,7 +31,7 @@ int    line_is_empty(char *line)
 {
     int i;
     i = 0;
-    if(line[0]='\0')
+    if(line[0] == '\0')
         return(1);
     while(line[i])
     {
@@ -73,4 +73,15 @@ int     line_is_digit(char **line)
         i++;
     }
     return(i);
+}
+
+void    free_str_array(char **str)
+{
+    int i;
+    i = 0;
+    if(str == NULL)
+        return;
+    while(str[i])
+        free(str[i++]);
+    free(str);
 }
