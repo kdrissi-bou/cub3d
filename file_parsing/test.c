@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 21:38:47 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/07 23:26:18 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/08 18:29:06 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int main(int argc, char **argv)
     printf("%d\n",g_inputs->f.red);
     printf("%d\n",g_inputs->f.green);
     printf("%d\n",g_inputs->f.blue);
-    free_str_array(g_map);
-    
+    //free_str_array(g_map);
+    clean_up();
     // print_map();
     
 }

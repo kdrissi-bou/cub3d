@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/07 21:46:54 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/08 22:25:20 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 
-#define WIN_SIZE 500
+# define WIN_HEIGHT g_inputs->height
+# define WIN_WIDTH g_inputs->width
 # define UP_ARROW 126
 # define DW_ARROW 125
 # define LF_ARROW 123
@@ -33,9 +34,8 @@
 # define S_KEY 1
 # define D_KEY 2
 # define ESC 53
-# define WIN_WIDTH g_inputs.width
-# define WIN_HEIGHT g_inputs.height
-# define MAP_SIZE 24
+# define MAP_ROWS g_rows
+# define MAP_COLUMNS g_columns
 # define MOVEMENT_SPEED 5
 # define ROTATION_SPEED 0.06
 
@@ -107,7 +107,7 @@ int			g_save;
 
 void	draw_square(int width, int height, int x, int y);
 int		buttons(int key, void *param);
-void	draw_map(int mapx, int mapy);
+void	draw_map(void);
 void	drawRay(int rx, int ry);
 void	draw_player(int x0, int y0, int radius);
 void	draw_line(int X0, int Y0, int X1, int Y1, int color);
@@ -144,9 +144,15 @@ void    get_north(char *line);
 void	store_rgb(char **str, char type);
 void	get_ceiling(char *line);
 void	get_flooring(char *line);
-void    check_comma(char *line);
-int    line_is_empty(char *line);
+void	check_comma(char *line);
+int		line_is_empty(char *line);
 void	print_map(void);
+int		key_released(int key);
+int		key_pressed(int key);
+void	init(void);
+void	player_init(void);
+void	mlx_struct_init(void);
+float	normalize_angle(float angle);
 
 
 #endif

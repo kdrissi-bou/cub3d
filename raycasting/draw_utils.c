@@ -1,6 +1,6 @@
 #include "../include/cub3d.h"
 
-extern int worldMap[24][24];
+
 // DRAW A CIRCLE FOR MY PLAYER
 void	draw_player(int x0, int y0, int radius)
 {
@@ -66,10 +66,8 @@ void	draw_square(int width, int height, int x, int y)
     int i;
     int j;
     int k;
-    int l;
     i = 0;
     j = 0;
-    l = y;
     k = x;
     while(i <= height)
     { 
@@ -77,38 +75,37 @@ void	draw_square(int width, int height, int x, int y)
         j = 0;
       while(j <= width)
        {
-           mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, k, l, 0xFFFFFF);
+           mlx_pixel_put(g_mlx.mlx_ptr, g_mlx.win_ptr, k, y, 0xFFFFFF);
            k++;
            j++;
        }
-    l++; 
+    y++; 
     i++;
     }
 }
 
-void    draw_map(int mapx, int mapy)
+void    draw_map(void)
 {   
     int i;
     int j;
-    int Mx = mapx;
-    int My = mapy;
-    i = 0;
-    j = 0;
-    int var;
-    var = WIN_SIZE /  MAP_SIZE;
+    int Mx = 0;
+    int My = 0;
+    int varX = WIN_WIDTH / (MAP_COLUMNS - 2);
+    int varY = WIN_HEIGHT / (MAP_ROWS - 2);
+    i = 1;
 
-    while(i < 24)
+    while (i < MAP_ROWS  - 1)
     {
-        My = mapy;
-        j = 0;
-        while(j < 24)
+        j = 1;
+        while (j < MAP_COLUMNS - 1)
         {
-            if(worldMap[i][j] != 0)
-                draw_square(var,var,Mx, My);
-            My +=var;
+            if (g_map[i][j] == '1')
+                draw_square(varX, varY ,Mx, My);
+            Mx += varX;
             j++;
         }
-    Mx += var;
+    Mx = 0;
+    My += varY;
     i++;   
     }
 }

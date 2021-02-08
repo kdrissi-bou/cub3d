@@ -1,11 +1,21 @@
 
 NAME = cub3D
 
-SRCS = srcs/cub.c srcs/draw_utils.c srcs/linked_list_fc.c 
- parsing/args-checker.c parsing/get_map.c  parsing/get_paths.c parsing/parsing.c\
- parsing/check_args.c parsing/get_floor_ceiling.c parsing/get_map.c\
-parsing/get_paths.c parsing/get_resolution.c parsing/map_utils.c parsing/parsing.c\
-parsing/parsing_utils.c 
+SRCS = raycasting/cub.c\
+raycasting/cub_utils.c\
+raycasting/draw_utils.c\
+raycasting/game_init.c\
+raycasting/linked_list_fc.c\
+file_parsing/check_args.c\
+file_parsing/get_floor_ceiling.c\
+file_parsing/get_map.c\
+file_parsing/get_paths.c\
+file_parsing/get_resolution.c\
+file_parsing/map_utils.c\
+file_parsing/parsing.c\
+file_parsing/parsing_utils.c\
+file_parsing/plombier.c\
+
 
 LIBFT = ./libft/libft.a
 
