@@ -5,7 +5,9 @@ SRCS = raycasting/cub.c\
 raycasting/cub_utils.c\
 raycasting/draw_utils.c\
 raycasting/game_init.c\
+raycasting/game_utils.c\
 raycasting/linked_list_fc.c\
+raycasting/cast_rays.c\
 file_parsing/check_args.c\
 file_parsing/get_floor_ceiling.c\
 file_parsing/get_map.c\
@@ -22,6 +24,7 @@ LIBFT = ./libft/libft.a
 INCLUDE = -I ./libft/libft.h -I ./include/cub3d.h -I /usr/local/include
 
 GCC = gcc -Wall -Werror -Wextra  #-g3 -fsanitize=address 
+GCCSANITIZE =  gcc -Wall -Werror -Wextra  -g3 -fsanitize=address 
 MLXMAC =  -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit 
 MLXLINUX = -lmlx -lX11 -lXext -lbsd -lm
 #all: $(NAME)
@@ -35,7 +38,9 @@ clean:
 linux:
 	make linux -C libft
 	$(GCC)  $(SRCS) $(LIBFT) $(MLXLINUX) -o $(NAME) 
-
+sanitize:
+	make linux -C libft
+	$(GCCSANITIZE)  $(SRCS) $(LIBFT) $(MLXLINUX) -o $(NAME) 
 fclean: clean
 	
 

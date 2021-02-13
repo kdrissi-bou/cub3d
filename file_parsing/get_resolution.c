@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:57:28 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/08 18:50:09 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/09 18:39:41 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_resolution(char *line)
 	y = 720;
 	if (dup == 0)
 	{
-		/*mlx_get_screen_size(g_mlx.mlx_ptr, &x, &y);*/
+		/*mlx_get_screen_size(g_mlx.mlx, &x, &y);*/
 		str = ft_split(line + 1, ' ');
 		if (line_is_digit(str) != 2)
 			error("Error: Wrong resolution!", str);

@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/08 22:25:20 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/13 12:14:11 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,26 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <errno.h>
+# include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <limits.h>
 # include "../libft/libft.h"
+# include "keys.h"
 
 # define WIN_HEIGHT g_inputs->height
 # define WIN_WIDTH g_inputs->width
-# define UP_ARROW 126
-# define DW_ARROW 125
-# define LF_ARROW 123
-# define RT_ARROW 124
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1
-# define D_KEY 2
-# define ESC 53
 # define MAP_ROWS g_rows
 # define MAP_COLUMNS g_columns
-# define MOVEMENT_SPEED 5
-# define ROTATION_SPEED 0.06
-
-
+# define WALK_SPEED 5
+# define TURN_SPEED 0.03
+# define FOV_ANGLE (60 * (M_PI / 180))
+# define TRUE 1
+# define FALSE 0
+# define TILE_SIZE (g_inputs->width / g_columns)
+# define RAD(x) (x * M_PI / 180)
  
 
 typedef struct 		s_rgb
@@ -71,31 +69,71 @@ typedef	struct	s_list
 
 typedef struct	s_mlx
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
+	void	*mlx;
+	void	*win;
 }				t_mlx;
 
 typedef struct	s_player
 {
 	float	x;
 	float	y;
-	float	dx;
-	float	dy;
+	// float	dx;
+	// float	dy;
 	float	angle;
 }				t_player;
 
-typedef struct	s_key
-{
-	int		up;
-	int		down;
-	int		right;
-	int		left;
-}				t_key;
 
+
+
+typedef struct  s_img {
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_img;
+
+typedef struct s_ray {
+	int 	up;
+	int		down;
+	int 	left;
+	int 	right;
+	float	x_inter;
+	float	y_inter;
+	float	xstep;
+	float	ystep;
+	int		horz_hit;
+	float	x_hit_horz;
+	float	y_hit_horz;
+	float	next_horz_X;
+	float	next_horz_Y;
+	int		vert_hit;
+	float	x_hit_vert;
+	float	y_hit_vert;
+	float	next_vert_X;
+	float	next_vert_Y;
+	float	check_X;
+	float	check_Y;
+	float	horz_distance;
+	float	vert_distance;
+	int 	content;
+}			t_ray;
+
+typedef struct	s_rays{
+	float		ray_angle;
+	float		wall_hit_x;
+	float		wall_hit_y;
+	float		distance;
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+	int			was_hit_vert;
+}				t_rays;
+	
 t_mlx		g_mlx;
 t_player	g_player;
-t_key		g_key;
+t_img		g_img;
 int         g_count;
 t_cub3d     *g_inputs;
 t_list		*g_file;
@@ -103,6 +141,11 @@ int			g_columns;
 int			g_rows;
 char		**g_map;
 int			g_save;
+int		g_walk_direction;
+int		g_turn_direction;
+t_ray	g_ray;
+t_rays	*g_rays;
+int		g_sprite_count;
 // FUNCTION PROTOTYPES
 
 void	draw_square(int width, int height, int x, int y);
@@ -146,6 +189,7 @@ void	get_ceiling(char *line);
 void	get_flooring(char *line);
 void	check_comma(char *line);
 int		line_is_empty(char *line);
+float	normalize_angle(float angle);
 void	print_map(void);
 int		key_released(int key);
 int		key_pressed(int key);
@@ -153,6 +197,19 @@ void	init(void);
 void	player_init(void);
 void	mlx_struct_init(void);
 float	normalize_angle(float angle);
+void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	init_rays(void);
+void	set_angle(char player_pos);
+void	init_player(void);
+void	cast_vert(float ray_angle);
+void	init_vert(float ray_angle);
+int		distance(float x1, float y1, float x2, float y2);
+void	init_horz(float ray_angle);
+void	cast_horz(float	ray_angle);
+void	store_rays(int strip_id, float ray_angle);
+int		has_wall_at(float x, float y);
+
+
 
 
 #endif
