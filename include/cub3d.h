@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/13 12:14:11 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/15 02:44:08 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define FALSE 0
 # define TILE_SIZE (g_inputs->width / g_columns)
 # define RAD(x) (x * M_PI / 180)
- 
+# define MINI 0.4
+# define EPSILON 1
 
 typedef struct 		s_rgb
 {
@@ -208,6 +209,7 @@ void	init_horz(float ray_angle);
 void	cast_horz(float	ray_angle);
 void	store_rays(int strip_id, float ray_angle);
 int		has_wall_at(float x, float y);
+int		rgb_to_int(int r, int g, int b);
 
 
 

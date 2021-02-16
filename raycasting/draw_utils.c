@@ -50,7 +50,7 @@ void            my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 // LINE
 void	draw_line(int X0, int Y0, int X1, int Y1, int color) 
-{ 
+{
     // calculate dx & dy 
     int dx = X1 - X0; 
     int dy = Y1 - Y0; 
@@ -114,12 +114,12 @@ void    draw_map(void)
         {
             //printf("%d,%d\n",i,j);
             if (g_map[i][j] == '1')
-                draw_square(TILE_SIZE, TILE_SIZE, Mx, My);
-            Mx += TILE_SIZE;
+                draw_square(TILE_SIZE * MINI, TILE_SIZE* MINI, Mx, My);
+            Mx += TILE_SIZE* MINI;
             j++;
         }
     Mx = 0;
-    My += TILE_SIZE;
+    My += TILE_SIZE * MINI;
     i++;   
     }
 }

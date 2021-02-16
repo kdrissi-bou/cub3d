@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 04:01:18 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/13 04:10:44 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/15 02:42:56 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_vert(float ray_angle)
 void	cast_vert(float ray_angle)
 {
 	init_vert(ray_angle);
-	while(g_ray.next_vert_X >=0 && g_ray.next_vert_X <= WIN_WIDTH && g_ray.next_vert_Y >= 0 && g_ray.next_vert_Y <= WIN_HEIGHT)
+	while(g_ray.next_vert_X >=0 && g_ray.next_vert_X <= MAP_COLUMNS * TILE_SIZE && g_ray.next_vert_Y >= 0 && g_ray.next_vert_Y <= MAP_ROWS * TILE_SIZE)
 	{
 		g_ray.check_X = g_ray.next_vert_X + (g_ray.left ? -1 : 0);
 		g_ray.check_Y = g_ray.next_vert_Y ;
@@ -49,7 +49,12 @@ void	cast_vert(float ray_angle)
 }
 int		distance(float x1, float y1, float x2, float y2)
 {
-	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 -  y1)));
+	int		dis;
+
+	dis = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 -  y1));
+	if (dis == 0)
+		return (EPSILON);
+	return(dis);
 }
 void	init_horz(float ray_angle)
 {
@@ -75,7 +80,7 @@ void	cast_horz(float	ray_angle)
 
 	init_horz(ray_angle);
 
-	while(g_ray.next_horz_X >=0 && g_ray.next_horz_X <= WIN_WIDTH && g_ray.next_horz_Y >= 0 && g_ray.next_horz_Y <= WIN_HEIGHT)
+	while(g_ray.next_horz_X >=0 && g_ray.next_horz_X <= MAP_COLUMNS * TILE_SIZE && g_ray.next_horz_Y >= 0 && g_ray.next_horz_Y <= MAP_ROWS * TILE_SIZE)
 	{
 		g_ray.check_X = g_ray.next_horz_X;
 		g_ray.check_Y = g_ray.next_horz_Y + (g_ray.up ? -1 : 0);
@@ -97,8 +102,7 @@ void	store_rays(int strip_id, float ray_angle)
 {
 	g_ray.horz_distance = g_ray.horz_hit ? distance(g_player.x, g_player.y, g_ray.x_hit_horz, g_ray.y_hit_horz) : INT_MAX;
 	g_ray.vert_distance = g_ray.vert_hit ? distance(g_player.x, g_player.y, g_ray.x_hit_vert, g_ray.y_hit_vert) : INT_MAX;
-	g_rays[strip_id].distance = (g_ray.horz_distance < g_ray.vert_distance)
-		? g_ray.horz_distance : g_ray.vert_distance;
+	g_rays[strip_id].distance = fmin(g_ray.horz_distance, g_ray.vert_distance);
 	g_rays[strip_id].wall_hit_x = (g_ray.horz_distance < g_ray.vert_distance)
 		? g_ray.x_hit_horz : g_ray.x_hit_vert;
 	g_rays[strip_id].wall_hit_y = (g_ray.horz_distance < g_ray.vert_distance)
