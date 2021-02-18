@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/15 02:48:23 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 02:19:34 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,59 @@ int		rgb_to_int(int r, int g, int b)
 
 void	render_walls(void)
 {
-	int	wall_height;
+	int		wall_height;
 	float	distance_plane;
-	float	projected_wall_height;
 	int		wall_top_pixel;
 	int		wall_bottom_pixel;
 	float	perp_distance;
 	int i;
-	// int y;
+
 	i = 0;
+	distance_plane = (WIN_WIDTH / 2) / tan(FOV_ANGLE / 2);
 	while (i < WIN_WIDTH)
 	{
 		
-		distance_plane = (WIN_WIDTH / 2) / tan(FOV_ANGLE / 2);
-		perp_distance = g_rays[i].distance * cos(g_rays[i].ray_angle - g_player.angle);
-		//printf("%f, %f\n", g_rays[i].distance,cos(g_rays[i].ray_angle - g_player.angle) );
-		projected_wall_height = (TILE_SIZE / perp_distance) * distance_plane;
-		wall_height = (int)projected_wall_height;
+		perp_distance = g_rays[i].distance * cosf(g_rays[i].ray_angle - g_player.angle);
+		wall_height = (int)((TILE_SIZE / perp_distance) * distance_plane);
 		wall_top_pixel = (WIN_HEIGHT / 2) - (wall_height / 2);
 		wall_top_pixel = wall_top_pixel < 0 ? 0 : wall_top_pixel;
 		wall_bottom_pixel = (WIN_HEIGHT / 2) + (wall_height / 2);
-		//printf("%d, %d\n", wall_height, wall_top_pixel);
 		wall_bottom_pixel = wall_bottom_pixel > WIN_HEIGHT ? WIN_HEIGHT : wall_bottom_pixel;
 		draw_ceiling(i,wall_top_pixel);
-		draw_line(i, wall_top_pixel, i, wall_bottom_pixel,0xFFFFFF);
-		//draw_flooring(i,wall_bottom_pixel);
+		draw_wall(i, wall_top_pixel, wall_height);
+		draw_flooring(i,wall_bottom_pixel);
 		i++;
 	}
-	
 }
+
+void	draw_wall(int i, int top_pixel, int wall_height)
+{
+	int y;
+	int	dis_from_top;
+	int	offset_x;
+	int	offset_y;
+	y = top_pixel;
+	
+	offset_x = g_rays[i].was_hit_vert ? (int)g_rays[i].wall_hit_y % TILE_SIZE : (int)g_rays[i].wall_hit_x % TILE_SIZE;
+	while (y < (top_pixel + wall_height))
+	{
+		dis_from_top = y + (wall_height / 2) - (WIN_HEIGHT / 2);
+		offset_y = dis_from_top * ((float)TEX_HEIGHT / wall_height);
+		if ((i >= 0 && i < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT))
+		{
+			if (g_rays[i].up && !g_rays[i].was_hit_vert)
+				my_mlx_pixel_put(&g_img, i, y, g_south.buffer[(g_south.img_width * offset_y) + offset_x]);	
+			else if (g_rays[i].down && !g_rays[i].was_hit_vert)
+				my_mlx_pixel_put(&g_img, i, y, g_north.buffer[(g_north.img_width * offset_y) + offset_x]); 
+			else if (g_rays[i].right && g_rays[i].was_hit_vert)
+				my_mlx_pixel_put(&g_img, i, y,g_west.buffer[(g_west.img_width * offset_y) + offset_x]); 
+			else if (g_rays[i].left && g_rays[i].was_hit_vert)
+				my_mlx_pixel_put(&g_img, i, y,g_east.buffer[(g_east.img_width* offset_y) + offset_x]); 
+		}
+		y++;
+	}
+}
+	
 void	cast_rays(void)
 {
 	float	ray_angle;
@@ -103,7 +127,7 @@ void	update(void)
 	g_player.angle += g_turn_direction * TURN_SPEED;
 	newPlayery = g_player.y + sin(g_player.angle) * WALK_SPEED * g_walk_direction;
 	newPlayerx = g_player.x + cos(g_player.angle) * WALK_SPEED * g_walk_direction;
-	if (!has_wall_at(newPlayerx, newPlayery))
+	if (!has_wall_at(newPlayerx - 15 * g_walk_direction , newPlayery - 15 * g_walk_direction))
 	{
 		g_player.x = newPlayerx;
 	 	g_player.y = newPlayery;
@@ -115,8 +139,6 @@ int		loop_key(void)
 	g_img.img = mlx_new_image(g_mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
     g_img.addr = mlx_get_data_addr(g_img.img, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
     update();
-	// draw_map(); 
-    // draw_player(g_player.x * MINI, g_player.y * MINI, 5* MINI);
 	cast_rays();
 	render_walls();
 	cast_rays();
@@ -132,11 +154,14 @@ void	game(void)
 	mlx_struct_init();
 	init_player();
 	init_rays();
+	init_texture();
 	mlx_hook(g_mlx.win, 2, 1L<<0, key_pressed, 0);
 	mlx_hook(g_mlx.win, 3, 1L<<1, key_released, 0);
 	mlx_loop_hook(g_mlx.mlx, loop_key, 0);
-	//loop_key();
-    mlx_loop(g_mlx.mlx);
+	//if (g_save)
+	//	screen();
+//	else
+    	mlx_loop(g_mlx.mlx);
 }
 
 

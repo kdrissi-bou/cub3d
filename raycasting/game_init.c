@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:17:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/13 12:03:26 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 01:43:22 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,27 @@ void	init_rays(void)
 	if (!(g_rays = malloc(sizeof(t_rays) * (WIN_WIDTH))))
 		return ;
 }
+
+void	init_texture(void)
+{
+	
+	if (!(g_north.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->no, &g_north.img_width, &g_north.img_height)))
+		return (error("Error\nTexture file not found!\n", NULL));
+	g_north.buffer = (int *)mlx_get_data_addr(g_north.ptr, &g_north.bpp, &g_north.size_line, &g_north.endian);
+	
+	if (!(g_south.buffer = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->so, &g_south.img_width, &g_south.img_height)))
+		return (error("Error\nTexture file not found!\n", NULL));
+	g_south.buffer = (int *)mlx_get_data_addr(g_south.buffer, &g_south.bpp, &g_south.size_line, &g_south.endian);
+	
+	if (!(g_west.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->we,&g_west.img_width, &g_west.img_height)))
+		return (error("Error\nTexture file not found!\n", NULL));
+	g_west.buffer = (int *)mlx_get_data_addr(g_west.ptr, &g_west.bpp, &g_west.size_line, &g_west.endian);
+	
+	if (!(g_east.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->ea, &g_east.img_width, &g_east.img_height)))
+		return (error("Error\nTexture file not found!\n", NULL));
+	g_east.buffer = (int *)mlx_get_data_addr(g_east.ptr, &g_east.bpp, &g_east.size_line, &g_east.endian);
+}
+
 void	init_player(void)
 {
 	int i;

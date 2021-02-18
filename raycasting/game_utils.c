@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:07:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/12 20:31:50 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/16 23:18:38 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		key_pressed(int key)
 		mlx_destroy_window(g_mlx.mlx, g_mlx.win);
 		exit(0);
 	}
-	if (key == KEY_UP)
+	if (key == KEY_8 || key == KEY_UP)
 		g_walk_direction = 1;
-	if (key == KEY_DOWN)
+	if (key == KEY_2 ||key == KEY_DOWN)
 		g_walk_direction = -1;
-	if (key == KEY_LEFT)
+	if (key == KEY_4 ||key == KEY_LEFT)
 		g_turn_direction = -1;
-	if (key == KEY_RIGHT)
+	if (key == KEY_6 ||key == KEY_RIGHT)
 		g_turn_direction = 1;
 	return (0);
 }
@@ -43,13 +43,13 @@ int		key_pressed(int key)
 // WILL SET KEY VARS TO 0
 int		key_released(int key)
 {
-	if (key == KEY_UP)
+	if (key == KEY_8 ||key == KEY_UP)
 		g_walk_direction = 0;
-	if (key == KEY_DOWN)
+	if (key == KEY_2 ||key == KEY_DOWN)
 		g_walk_direction = 0;
-	if (key == KEY_LEFT)
+	if (key == KEY_4 ||key == KEY_LEFT)
 		g_turn_direction = 0;
-	if (key == KEY_RIGHT)
+	if (key == KEY_6||key == KEY_RIGHT)
 		g_turn_direction = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/15 02:44:08 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 01:48:14 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 # define RAD(x) (x * M_PI / 180)
 # define MINI 0.4
 # define EPSILON 1
-
+# define TEX_HEIGHT 64
+# define TEX_WIDTH 64
 typedef struct 		s_rgb
 {
 	int				red;
@@ -83,8 +84,18 @@ typedef struct	s_player
 	float	angle;
 }				t_player;
 
-
-
+typedef struct	s_tex
+{
+	void		*ptr;
+	int			*buffer;
+	int			img_width;
+	int			img_height;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	int			dist_ftop;
+	int			color;
+}				t_tex;
 
 typedef struct  s_img {
     void        *img;
@@ -147,6 +158,10 @@ int		g_turn_direction;
 t_ray	g_ray;
 t_rays	*g_rays;
 int		g_sprite_count;
+t_tex			g_south;
+t_tex			g_north;
+t_tex			g_east;
+t_tex			g_west;
 // FUNCTION PROTOTYPES
 
 void	draw_square(int width, int height, int x, int y);
@@ -210,8 +225,7 @@ void	cast_horz(float	ray_angle);
 void	store_rays(int strip_id, float ray_angle);
 int		has_wall_at(float x, float y);
 int		rgb_to_int(int r, int g, int b);
-
-
-
+void	draw_wall(int i, int top_pixel, int wall_height);
+void	init_texture(void);
 
 #endif
