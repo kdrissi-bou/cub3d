@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/18 02:19:34 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 12:53:18 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		has_wall_at(float x, float y)
 		return (1);
 	return (0);
 }
+
 void	draw_ceiling(int i, int	top)
 {
 	int	color;
@@ -32,6 +33,7 @@ void	draw_ceiling(int i, int	top)
 	draw_line(i,0,i,top,color);
 
 }
+
 void	draw_flooring(int i, int bottom)
 {
 	int	color;
@@ -39,6 +41,7 @@ void	draw_flooring(int i, int bottom)
 	draw_line(i,bottom,i,WIN_HEIGHT,color);
 
 }
+
 int		rgb_to_int(int r, int g, int b)
 {
 	return ((r * (256 * 256)) + (g * (256)) + (b));
@@ -51,13 +54,12 @@ void	render_walls(void)
 	int		wall_top_pixel;
 	int		wall_bottom_pixel;
 	float	perp_distance;
-	int i;
+	int 	i;
 
 	i = 0;
 	distance_plane = (WIN_WIDTH / 2) / tan(FOV_ANGLE / 2);
 	while (i < WIN_WIDTH)
 	{
-		
 		perp_distance = g_rays[i].distance * cosf(g_rays[i].ray_angle - g_player.angle);
 		wall_height = (int)((TILE_SIZE / perp_distance) * distance_plane);
 		wall_top_pixel = (WIN_HEIGHT / 2) - (wall_height / 2);
@@ -73,10 +75,10 @@ void	render_walls(void)
 
 void	draw_wall(int i, int top_pixel, int wall_height)
 {
-	int y;
-	int	dis_from_top;
-	int	offset_x;
-	int	offset_y;
+	int		y;
+	int		dis_from_top;
+	int		offset_x;
+	int		offset_y;
 	y = top_pixel;
 	
 	offset_x = g_rays[i].was_hit_vert ? (int)g_rays[i].wall_hit_y % TILE_SIZE : (int)g_rays[i].wall_hit_x % TILE_SIZE;
@@ -119,18 +121,19 @@ void	cast_rays(void)
 		strip_id++;
 	}
 }
+
 void	update(void)
 {
 	float	newPlayery;
 	float	newPlayerx;
 
 	g_player.angle += g_turn_direction * TURN_SPEED;
-	newPlayery = g_player.y + sin(g_player.angle) * WALK_SPEED * g_walk_direction;
-	newPlayerx = g_player.x + cos(g_player.angle) * WALK_SPEED * g_walk_direction;
-	if (!has_wall_at(newPlayerx - 15 * g_walk_direction , newPlayery - 15 * g_walk_direction))
+	newPlayery = g_player.y + sin(g_player.angle) * 25 * g_walk_direction;
+	newPlayerx = g_player.x + cos(g_player.angle) * 25 * g_walk_direction;
+	if (!(has_wall_at(newPlayerx, newPlayery)))
 	{
-		g_player.x = newPlayerx;
-	 	g_player.y = newPlayery;
+		g_player.x += cos(g_player.angle) * WALK_SPEED * g_walk_direction;
+	 	g_player.y += sin(g_player.angle) * WALK_SPEED * g_walk_direction;
 	}
 }
 
@@ -141,9 +144,13 @@ int		loop_key(void)
     update();
 	cast_rays();
 	render_walls();
+	ft_sprite();
 	cast_rays();
 	draw_map(); 
     draw_player(g_player.x * MINI, g_player.y * MINI, 5* MINI);
+	
+	screen();
+	exit(0);
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_img.img, 0, 0);
 	mlx_destroy_image(g_mlx.mlx, g_img.img);
 	return (0);
@@ -155,15 +162,14 @@ void	game(void)
 	init_player();
 	init_rays();
 	init_texture();
+	init_sprite();
 	mlx_hook(g_mlx.win, 2, 1L<<0, key_pressed, 0);
 	mlx_hook(g_mlx.win, 3, 1L<<1, key_released, 0);
 	mlx_loop_hook(g_mlx.mlx, loop_key, 0);
-	//if (g_save)
-	//	screen();
-//	else
-    	mlx_loop(g_mlx.mlx);
-}
 
+	mlx_loop(g_mlx.mlx);
+	exit(0);
+}
 
 int		main(int argc, char **argv)
 {	

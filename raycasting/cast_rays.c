@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 04:01:18 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/16 23:23:05 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 10:38:28 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	cast_horz(float	ray_angle)
 	{
 		g_ray.check_X = g_ray.next_horz_X;
 		g_ray.check_Y = g_ray.next_horz_Y + (g_ray.up ? -1 : 0);
-		if(has_wall_at(g_ray.check_X, g_ray.check_Y))
+		if (has_wall_at(g_ray.check_X, g_ray.check_Y))
 		{
 			g_ray.x_hit_horz = g_ray.next_horz_X;
 			g_ray.y_hit_horz = g_ray.next_horz_Y;

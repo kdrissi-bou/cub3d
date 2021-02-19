@@ -43,9 +43,11 @@ void	draw_player(int x0, int y0, int radius)
 void            my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
     char    *dst;
-    
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+    if ((x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT))
+    {
+        dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+        *(unsigned int*)dst = color;
+    }
 }
 
 // LINE
@@ -107,10 +109,10 @@ void    draw_map(void)
     float My = 0;
 
     i = 0;
-    while (i < MAP_ROWS )
+    while (i < MAP_ROWS)
     {
         j = 0;
-        while (j < MAP_COLUMNS )
+        while (j < MAP_COLUMNS)
         {
             //printf("%d,%d\n",i,j);
             if (g_map[i][j] == '1')

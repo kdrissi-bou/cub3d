@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:17:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/18 01:43:22 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 10:57:15 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,31 @@ void	init_rays(void)
 		return ;
 }
 
+void	init_sprite(void)
+{
+	int		spt_id;
+
+	spt_id = 0;
+	if (!(g_sprite = malloc(sizeof(t_sprite *) * (g_sprite_count + 1))))
+		return ;
+	while (spt_id < g_sprite_count)
+	{
+		if (!(g_sprite[spt_id] = malloc(sizeof(t_sprite))))
+			return ;
+		if (!(g_sprite[spt_id]->ptr = mlx_xpm_file_to_image(g_mlx.mlx,
+		 g_inputs->s, &g_sprite[spt_id]->width, &g_sprite[spt_id]->height)))
+			return (error("Error\nTexture file not found!\n", NULL));
+		g_sprite[spt_id]->data = (int *)mlx_get_data_addr(g_sprite[spt_id]->ptr,
+		&g_sprite[spt_id]->bpp,
+		&g_sprite[spt_id]->size_line,
+		&g_sprite[spt_id]->endian);
+		spt_id++;
+	}
+	g_sprite[spt_id] = NULL;
+}
+
 void	init_texture(void)
 {
-	
 	if (!(g_north.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->no, &g_north.img_width, &g_north.img_height)))
 		return (error("Error\nTexture file not found!\n", NULL));
 	g_north.buffer = (int *)mlx_get_data_addr(g_north.ptr, &g_north.bpp, &g_north.size_line, &g_north.endian);
@@ -47,6 +69,9 @@ void	init_texture(void)
 		return (error("Error\nTexture file not found!\n", NULL));
 	g_west.buffer = (int *)mlx_get_data_addr(g_west.ptr, &g_west.bpp, &g_west.size_line, &g_west.endian);
 	
+	if (!(g_east.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->ea, &g_east.img_width, &g_east.img_height)))
+		return (error("Error\nTexture file not found!\n", NULL));
+	g_east.buffer = (int *)mlx_get_data_addr(g_east.ptr, &g_east.bpp, &g_east.size_line, &g_east.endian);
 	if (!(g_east.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->ea, &g_east.img_width, &g_east.img_height)))
 		return (error("Error\nTexture file not found!\n", NULL));
 	g_east.buffer = (int *)mlx_get_data_addr(g_east.ptr, &g_east.bpp, &g_east.size_line, &g_east.endian);
@@ -69,7 +94,6 @@ void	init_player(void)
 				set_angle(g_map[i][j]);
 				g_player.y = ((i ) * TILE_SIZE) + TILE_SIZE / 2;
 				g_player.x = ((j ) * TILE_SIZE) + TILE_SIZE / 2;
-				//printf("%d,%d\n",i,j);
 			}
 			else if (g_map[i][j] == '2')
 				g_sprite_count++;

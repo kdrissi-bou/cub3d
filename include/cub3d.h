@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/18 01:48:14 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/18 12:39:49 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@
 # define FOV_ANGLE (60 * (M_PI / 180))
 # define TRUE 1
 # define FALSE 0
-# define TILE_SIZE (g_inputs->width / g_columns)
+# define TILE_SIZE 64
 # define RAD(x) (x * M_PI / 180)
-# define MINI 0.4
+# define MINI 0.1
 # define EPSILON 1
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
+
 typedef struct 		s_rgb
 {
 	int				red;
@@ -79,8 +80,6 @@ typedef struct	s_player
 {
 	float	x;
 	float	y;
-	// float	dx;
-	// float	dy;
 	float	angle;
 }				t_player;
 
@@ -131,7 +130,8 @@ typedef struct s_ray {
 	int 	content;
 }			t_ray;
 
-typedef struct	s_rays{
+typedef struct	s_rays
+{
 	float		ray_angle;
 	float		wall_hit_x;
 	float		wall_hit_y;
@@ -142,7 +142,38 @@ typedef struct	s_rays{
 	int			right;
 	int			was_hit_vert;
 }				t_rays;
-	
+
+typedef struct	s_sprite
+{
+	void		*ptr;
+	int			*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	int			width;
+	int			height;
+	float		x;
+	float		y;
+	float		distance;
+}				t_sprite;
+
+
+
+typedef struct	s_bitmap
+{
+	unsigned int	file_size;
+	unsigned int	pd_offset;
+	unsigned int	header_size;
+	unsigned int	image_width;
+	unsigned int	image_height;
+	unsigned int	image_size;
+	unsigned short	planes;
+	unsigned short	bpp;
+	int				width_in_bytes;
+}				t_bitmap;
+
+
+
 t_mlx		g_mlx;
 t_player	g_player;
 t_img		g_img;
@@ -153,17 +184,19 @@ int			g_columns;
 int			g_rows;
 char		**g_map;
 int			g_save;
-int		g_walk_direction;
-int		g_turn_direction;
-t_ray	g_ray;
-t_rays	*g_rays;
-int		g_sprite_count;
-t_tex			g_south;
-t_tex			g_north;
-t_tex			g_east;
-t_tex			g_west;
-// FUNCTION PROTOTYPES
+int			g_walk_direction;
+int			g_turn_direction;
+t_ray		g_ray;
+t_rays		*g_rays;
+int			g_sprite_count;
+t_tex		g_south;
+t_tex		g_north;
+t_tex		g_east;
+t_tex		g_west;
+t_sprite	**g_sprite;
 
+
+// FUNCTION PROTOTYPES
 void	draw_square(int width, int height, int x, int y);
 int		buttons(int key, void *param);
 void	draw_map(void);
@@ -227,5 +260,12 @@ int		has_wall_at(float x, float y);
 int		rgb_to_int(int r, int g, int b);
 void	draw_wall(int i, int top_pixel, int wall_height);
 void	init_texture(void);
-
+void	init_sprite(void);
+void	update_sprite(void);
+void	ft_sprite_sort(void);
+void	ft_sprite(void);
+void	free_sprite(void);
+void    sprite_traits(int spt_id);
+void	screen(void);
+int     loop_key(void);
 #endif

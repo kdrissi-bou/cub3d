@@ -17,13 +17,16 @@ file_parsing/map_utils.c\
 file_parsing/parsing.c\
 file_parsing/parsing_utils.c\
 file_parsing/plombier.c\
+raycasting/sprite.c\
+raycasting/screen.c\
+
 
 
 LIBFT = ./libft/libft.a
 
 INCLUDE = -I ./libft/libft.h -I ./include/cub3d.h -I /usr/local/include
 
-GCC = gcc -Wall -Werror -Wextra  #-g3 -fsanitize=address 
+GCC = gcc -Wall -Werror -Wextra  -g3 -fsanitize=address 
 GCCSANITIZE =  gcc -Wall -Werror -Wextra  -g3 -fsanitize=address 
 MLXMAC =  -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit 
 MLXLINUX = -lmlx -lX11 -lXext -lbsd -lm
