@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:01:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/13 03:18:40 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/19 14:46:21 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,18 @@ void	set_angle(char player_pos)
 		g_player.angle = RAD(180);
 	else if (player_pos == 'E')
 		g_player.angle = RAD(360);
+}
+
+void	init(void)
+{
+	g_count = 0;
+	g_inputs = (t_cub3d *)malloc(sizeof(t_cub3d));
+	g_inputs->we = NULL;
+	g_inputs->ea = NULL;
+	g_inputs->so = NULL;
+	g_inputs->no = NULL;
+	g_inputs->s = NULL;
+	g_columns = 0;
+	g_rows = 2;
+	g_map = NULL;
 }

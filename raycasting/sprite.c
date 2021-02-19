@@ -6,21 +6,11 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:18:25 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/18 10:57:26 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:28:05 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	free_sprite(void)
-{
-	int		i;
-
-	i = -1;
-	while (++i < g_sprite_count)
-		free(g_sprite[i]);
-	free(g_sprite);
-}
 
 void	ft_sprite_sort(void)
 {
@@ -48,14 +38,16 @@ void	ft_sprite_sort(void)
 
 void	update_sprite(void)
 {
-    int     spt_id = 0;
-    int     j = -1;
-	int     i;
+	int		i;
+	int		j;
+	int		spt_id;
 
-	while (++j < MAP_ROWS)
+	spt_id = 0;
+	j = -1;
+	while (++j < ROWS)
 	{
 		i = -1;
-		while (++i < MAP_COLUMNS)
+		while (++i < COLUMNS)
 		{
 			if (g_map[j][i] == '2')
 			{
@@ -71,9 +63,9 @@ void	update_sprite(void)
 	ft_sprite_sort();
 }
 
-void    render_sprite(int k, int x_fs, int y_fs, int sp_size)
+void	render_sprite(int k, int x_fs, int y_fs, int sp_size)
 {
-    int		i;
+	int		i;
 	int		j;
 	int		color;
 
@@ -99,16 +91,15 @@ void    render_sprite(int k, int x_fs, int y_fs, int sp_size)
 	}
 }
 
-void    sprite_traits(int spt_id)
+void	sprite_traits(int spt_id)
 {
-    float   sp_angle;
-    float   x_offset;
-    float   y_offset;
-    float	sp_size;
+	float	sp_angle;
+	float	x_offset;
+	float	y_offset;
+	float	sp_size;
 
 	sp_angle = atan2(-g_player.y + (g_sprite[spt_id]->y),
 							-g_player.x + (g_sprite[spt_id]->x));
-    // NORMALIZES SPRITE
 	while (sp_angle - g_player.angle > M_PI)
 		sp_angle -= M_PI * 2;
 	while (sp_angle - g_player.angle < -M_PI)
@@ -120,7 +111,7 @@ void    sprite_traits(int spt_id)
 	render_sprite(spt_id, x_offset, y_offset, sp_size);
 }
 
-void    ft_sprite(void)
+void	ft_sprite(void)
 {
 	int		i;
 

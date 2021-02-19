@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/18 12:39:49 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:02:16 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 # define WIN_HEIGHT g_inputs->height
 # define WIN_WIDTH g_inputs->width
-# define MAP_ROWS g_rows
-# define MAP_COLUMNS g_columns
+# define ROWS g_rows
+# define COLUMNS g_columns
 # define WALK_SPEED 5
 # define TURN_SPEED 0.03
 # define FOV_ANGLE (60 * (M_PI / 180))
@@ -87,8 +87,8 @@ typedef struct	s_tex
 {
 	void		*ptr;
 	int			*buffer;
-	int			img_width;
-	int			img_height;
+	int			width;
+	int			height;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -97,8 +97,8 @@ typedef struct	s_tex
 }				t_tex;
 
 typedef struct  s_img {
-    void        *img;
-    char        *addr;
+    void		*img;
+    char		*addr;
     int         bits_per_pixel;
     int         line_length;
     int         endian;

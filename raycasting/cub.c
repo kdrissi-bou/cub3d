@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/18 12:53:18 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:40:19 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		has_wall_at(float x, float y)
 
 	mapX  = floor(x  / TILE_SIZE) ;
 	mapY  = floor(y /TILE_SIZE);
-	if(mapX < 0 || mapX > MAP_COLUMNS || mapY < 0 || mapY > MAP_ROWS)
+	if(mapX < 0 || mapX > COLUMNS || mapY < 0 || mapY > ROWS)
 		return (1);
 	if(g_map[mapY][mapX] == '1')
 		return (1);
@@ -89,13 +89,13 @@ void	draw_wall(int i, int top_pixel, int wall_height)
 		if ((i >= 0 && i < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT))
 		{
 			if (g_rays[i].up && !g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y, g_south.buffer[(g_south.img_width * offset_y) + offset_x]);	
+				my_mlx_pixel_put(&g_img, i, y, g_south.buffer[(g_south.width * offset_y) + offset_x]);	
 			else if (g_rays[i].down && !g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y, g_north.buffer[(g_north.img_width * offset_y) + offset_x]); 
+				my_mlx_pixel_put(&g_img, i, y, g_north.buffer[(g_north.width * offset_y) + offset_x]); 
 			else if (g_rays[i].right && g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y,g_west.buffer[(g_west.img_width * offset_y) + offset_x]); 
+				my_mlx_pixel_put(&g_img, i, y,g_west.buffer[(g_west.width * offset_y) + offset_x]); 
 			else if (g_rays[i].left && g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y,g_east.buffer[(g_east.img_width* offset_y) + offset_x]); 
+				my_mlx_pixel_put(&g_img, i, y,g_east.buffer[(g_east.width* offset_y) + offset_x]); 
 		}
 		y++;
 	}
@@ -115,7 +115,6 @@ void	cast_rays(void)
 		cast_horz(ray_angle);
 		cast_vert(ray_angle);
 		store_rays(strip_id, ray_angle);
-		draw_line(g_player.x  * MINI, g_player.y * MINI, g_rays[strip_id].wall_hit_x * MINI, g_rays[strip_id].wall_hit_y * MINI, 0xFFF00 );
 		ray_angle += FOV_ANGLE / WIN_WIDTH;
 		ray_angle = normalize_angle(ray_angle);
 		strip_id++;
@@ -145,12 +144,6 @@ int		loop_key(void)
 	cast_rays();
 	render_walls();
 	ft_sprite();
-	cast_rays();
-	draw_map(); 
-    draw_player(g_player.x * MINI, g_player.y * MINI, 5* MINI);
-	
-	screen();
-	exit(0);
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_img.img, 0, 0);
 	mlx_destroy_image(g_mlx.mlx, g_img.img);
 	return (0);
@@ -165,10 +158,12 @@ void	game(void)
 	init_sprite();
 	mlx_hook(g_mlx.win, 2, 1L<<0, key_pressed, 0);
 	mlx_hook(g_mlx.win, 3, 1L<<1, key_released, 0);
-	mlx_loop_hook(g_mlx.mlx, loop_key, 0);
-
-	mlx_loop(g_mlx.mlx);
+	
+	screen();
 	exit(0);
+	mlx_loop_hook(g_mlx.mlx, loop_key, 0);
+	mlx_loop(g_mlx.mlx);
+	
 }
 
 int		main(int argc, char **argv)

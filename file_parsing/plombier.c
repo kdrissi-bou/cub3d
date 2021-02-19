@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plombier.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:08:32 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/08 18:59:25 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/19 17:28:21 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,14 @@ void	clean_up(void)
 	free(g_inputs->s);
 	free(g_inputs);
 	free_str_array(g_map);
+}
+
+void	free_sprite(void)
+{
+	int		i;
+
+	i = -1;
+	while (++i < g_sprite_count)
+		free(g_sprite[i]);
+	free(g_sprite);
 }
