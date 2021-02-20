@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/19 18:02:16 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/20 23:57:51 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,8 @@ t_tex		g_south;
 t_tex		g_north;
 t_tex		g_east;
 t_tex		g_west;
-t_sprite	**g_sprite;
+t_sprite	*g_sprite;
+t_tex		g_sp_img;
 
 
 // FUNCTION PROTOTYPES
@@ -268,4 +269,5 @@ void	free_sprite(void);
 void    sprite_traits(int spt_id);
 void	screen(void);
 int     loop_key(void);
+int		exit_success(void);
 #endif

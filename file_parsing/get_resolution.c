@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:57:28 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/09 18:39:41 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 00:51:17 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	get_resolution(char *line)
 		{
 			g_inputs->width = ft_atoi(str[0]) > x ? x : ft_atoi(str[0]);
 			g_inputs->height = ft_atoi(str[1]) > y ? y : ft_atoi(str[1]);
+			g_inputs->width = ft_atoi(str[0]) <= 0 ? x : ft_atoi(str[0]);
+			g_inputs->height = ft_atoi(str[1]) <= 0 ? y : ft_atoi(str[1]);
 			g_count++;
 			free_str_array(str);
 			dup = 1;

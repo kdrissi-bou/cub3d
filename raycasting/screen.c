@@ -3,72 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   screen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:10:46 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/19 18:04:01 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/20 22:17:03 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/cub3d.h"
 
-static void	init_data(t_bitmap *bmp)
+
+static void	write_uint32(int fd, unsigned int bytes)
 {
-	bmp->pd_offset = 54;
-	bmp->header_size = 40;
-	bmp->image_width = WIN_WIDTH;
-	bmp->image_height = WIN_HEIGHT;
-	bmp->bpp = 24;
-	bmp->width_in_bytes = ((bmp->image_width * bmp->bpp + 31) / 23) * 4;
-	bmp->planes = 1;
-	bmp->image_size = bmp->width_in_bytes * bmp->image_height;
-	bmp->file_size = 54 + bmp->image_size;
+	write(fd, &bytes, 4);
 }
 
-static void	set_bmp_header(unsigned char *buffer, t_bitmap *bmp)
+static void	write_uint16(int fd, short bytes)
 {
-	ft_memcpy(buffer, "BM", 2);
-	ft_memcpy(buffer + 2, &(bmp->file_size), 4);
-	ft_memcpy(buffer + 10, &(bmp->pd_offset), 4);
-	ft_memcpy(buffer + 14, &(bmp->header_size), 4);
-	ft_memcpy(buffer + 18, &(bmp->image_width), 4);
-	ft_memcpy(buffer + 22, &(bmp->image_height), 4);
-	ft_memcpy(buffer + 26, &(bmp->planes), 2);
-	ft_memcpy(buffer + 28, &(bmp->bpp), 2);
-	ft_memcpy(buffer + 34, &(bmp->image_size), 4);
+	write(fd, &bytes, 2);
 }
 
-static void	fill_buffer(int fd)
-{   
-	int x;
-    int y;
-	int x2;
+static void	write_headers(int fd)
+{
+	unsigned int	size;
+	unsigned int	img_size;
+	unsigned int	ppm;
 
-	if (fd < 0)
-		return ;
-	y = WIN_HEIGHT;
-	while (--y >= 0)
-	{
-		x = WIN_WIDTH;
-		x2 = 0;
-		while (--x >= 0)
-		{
-			write(fd, , 3);
-			x2++;
-		}
-	}
+	ppm = 96 * 39.375;
+	size = WIN_HEIGHT * WIN_WIDTH * 3;
+	img_size = size + 54;
+	write(fd, "BM", 2);
+	write(fd, &img_size, 4);
+	write_uint16(fd, 0);
+	write_uint16(fd, 0);
+	write_uint32(fd, 54);
+	write_uint32(fd, 40);
+	write_uint32(fd, (unsigned int)WIN_WIDTH);
+	write_uint32(fd, (unsigned int)WIN_HEIGHT);
+	write_uint16(fd, 1);
+	write_uint16(fd, 24);
+	write_uint32(fd, 0);
+	write_uint32(fd, img_size);
+	write_uint32(fd, ppm);
+	write_uint32(fd, ppm);
+	write_uint32(fd, 0);
+	write_uint32(fd, 0);
 }
 
 void		screen(void)
 {
-	int				fd;
-	t_bitmap		bmp;
-	unsigned char	header[54];
-	init_data(&bmp);
+	int		fd;
+	int		x;
+	int		y;
+	int		*pixel;
+	int		i;
+
+	if (!(fd = open("minirt.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0644)))
+		exit(-1);
 	loop_key();
-	fd = open("img.bmp", O_RDWR | O_CREAT, 500);
-	set_bmp_header(header, &bmp);
-	write(fd, header, 54);
-	fill_buffer(fd);
+	write_headers(fd);
+	y = WIN_HEIGHT - 1;
+	while (y > -1)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			i = (x + WIN_WIDTH * y) * 4;
+			pixel = (int *)(g_img.addr+ i);
+			write(fd, pixel, 3);
+			x++;
+		}
+		y--;
+	}
 	close(fd);
+	mlx_destroy_image(g_mlx.mlx, g_img.img);
+	clean_up();
+	exit(0);
 }

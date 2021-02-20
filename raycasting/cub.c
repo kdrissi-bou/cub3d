@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/19 17:40:19 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 00:41:47 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,24 +144,25 @@ int		loop_key(void)
 	cast_rays();
 	render_walls();
 	ft_sprite();
-	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_img.img, 0, 0);
-	mlx_destroy_image(g_mlx.mlx, g_img.img);
+	if(!g_save)
+	{
+		mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_img.img, 0, 0);
+		mlx_destroy_image(g_mlx.mlx, g_img.img);
+	}
 	return (0);
 }
-
 void	game(void)
 {
 	mlx_struct_init();
 	init_player();
-	init_rays();
-	init_texture();
 	init_sprite();
+	init_rays();
+	if (g_save)
+		screen();
 	mlx_hook(g_mlx.win, 2, 1L<<0, key_pressed, 0);
 	mlx_hook(g_mlx.win, 3, 1L<<1, key_released, 0);
-	
-	screen();
-	exit(0);
 	mlx_loop_hook(g_mlx.mlx, loop_key, 0);
+	mlx_hook(g_mlx.win, 17, (1L << 17), exit_success, 0);
 	mlx_loop(g_mlx.mlx);
 	
 }

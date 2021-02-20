@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plombier.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:08:32 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/19 17:28:21 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 00:40:20 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,20 @@ void	error(char *err_msg, char **str)
 	ft_putstr_fd(err_msg, 2);
 	exit(-1);
 }
-
+void	free_texture(void)
+{
+	if(g_mlx.mlx )
+	{
+		if (g_north.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_north.ptr);
+		if (g_south.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_south.ptr);
+		if (g_west.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_west.ptr);
+		if (g_east.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_east.ptr);
+	}
+}
 void	clean_up(void)
 {
 	free(g_inputs->no);
@@ -29,15 +42,14 @@ void	clean_up(void)
 	free(g_inputs->ea);
 	free(g_inputs->s);
 	free(g_inputs);
+	free_texture();
 	free_str_array(g_map);
+	free_sprite();
 }
 
 void	free_sprite(void)
 {
-	int		i;
-
-	i = -1;
-	while (++i < g_sprite_count)
-		free(g_sprite[i]);
+	if (g_sp_img.ptr)
+		mlx_destroy_image(g_mlx.mlx, g_sp_img.ptr);
 	free(g_sprite);
 }

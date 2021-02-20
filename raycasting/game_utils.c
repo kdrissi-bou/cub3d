@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:07:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/19 17:21:07 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/20 22:58:53 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@ float	normalize_angle(float angle)
 	return (angle);
 }
 
+int		exit_success(void)
+{
+	clean_up();
+	mlx_destroy_window(g_mlx.mlx, g_mlx.win);
+	exit(0);
+	return (0);
+}
+
 int		key_pressed(int key)
 {
 	if (key == KEY_ESC)
-	{
-		mlx_destroy_window(g_mlx.mlx, g_mlx.win);
-		exit(0);
-	}
+		exit_success();
 	if (key == KEY_8 || key == KEY_UP)
 		g_walk_direction = 1;
 	if (key == KEY_2 || key == KEY_DOWN)

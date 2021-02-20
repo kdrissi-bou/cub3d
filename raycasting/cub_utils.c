@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:01:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/19 14:46:21 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 00:28:35 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,23 @@ void	set_angle(char player_pos)
 
 void	init(void)
 {
+	g_sprite_count = 0;
+	g_sprite = NULL;
 	g_count = 0;
+	g_save = 0;
 	g_inputs = (t_cub3d *)malloc(sizeof(t_cub3d));
 	g_inputs->we = NULL;
 	g_inputs->ea = NULL;
 	g_inputs->so = NULL;
 	g_inputs->no = NULL;
 	g_inputs->s = NULL;
+	g_north.ptr = NULL;
+	g_south.ptr = NULL;
+	g_west.ptr = NULL;
+	g_east.ptr = NULL;
+	g_sp_img.ptr = NULL;
+	g_rays = NULL;
+	g_mlx.mlx = NULL;
 	g_columns = 0;
 	g_rows = 2;
 	g_map = NULL;
