@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:17:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 13:58:31 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 18:44:13 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_rays(void)
 {
-	if (!(g_rays = malloc(sizeof(t_rays) * (WIN_WIDTH))))
+	if (!(g_rays = malloc(sizeof(t_rays) * (g_inputs->width))))
 		return ;
 }
 
@@ -86,5 +86,6 @@ void	mlx_struct_init(void)
 	g_mlx.mlx = mlx_init();
 	init_texture();
 	if (!g_save)
-		g_mlx.win = mlx_new_window(g_mlx.mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
+		g_mlx.win = mlx_new_window(g_mlx.mlx, g_inputs->width, g_inputs->height,
+		"cub3D");
 }

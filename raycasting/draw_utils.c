@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:52:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 14:12:02 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 18:35:32 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if ((x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT))
+	if ((x >= 0 && x < g_inputs->width && y >= 0 && y < g_inputs->height))
 	{
 		dst = img->addr + (y * img->line_length + x *
 		(img->bits_per_pixel / 8));
@@ -78,7 +78,7 @@ void	draw_map(void)
 	}
 }
 
-void	draw_line(int x0, int y0, int x1, int y1, int color)
+void	draw_line(t_line line)
 {
 	int		steps;
 	float	xinc;
@@ -86,17 +86,17 @@ void	draw_line(int x0, int y0, int x1, int y1, int color)
 	float	xin;
 	float	yin;
 
-	g_dx = x1 - x0;
-	g_dy = y1 - y0;
+	g_dx = line.x1 - line.x0;
+	g_dy = line.y1 - line.y0;
 	steps = abs(g_dx) > abs(g_dy) ? abs(g_dx) : abs(g_dy);
 	xinc = g_dx / (float)steps;
 	yinc = g_dy / (float)steps;
-	xin = x0;
-	yin = y0;
+	xin = line.x0;
+	yin = line.y0;
 	g_i = 0;
 	while (g_i < steps)
 	{
-		put_pixel(&g_img, xin, yin, color);
+		put_pixel(&g_img, xin, yin, line.color);
 		xin += xinc;
 		yin += yinc;
 		g_i++;

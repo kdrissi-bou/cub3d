@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl_ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 06:13:22 by kdrissi-          #+#    #+#             */
-/*   Updated: 2019/10/20 06:13:44 by kdrissi-         ###   ########.fr       */
+/*   Created: 2021/02/21 17:55:14 by kdrissi-          #+#    #+#             */
+/*   Updated: 2021/02/21 17:55:18 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	* ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	char *ptrs;
 

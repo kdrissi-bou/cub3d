@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:07:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/20 22:58:53 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 17:36:05 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int		key_pressed(int key)
 	if (key == KEY_ESC)
 		exit_success();
 	if (key == KEY_8 || key == KEY_UP)
-		g_walk_direction = 1;
+		g_walk_direct = 1;
 	if (key == KEY_2 || key == KEY_DOWN)
-		g_walk_direction = -1;
+		g_walk_direct = -1;
 	if (key == KEY_4 || key == KEY_LEFT)
 		g_turn_direction = -1;
 	if (key == KEY_6 || key == KEY_RIGHT)
@@ -46,9 +46,9 @@ int		key_pressed(int key)
 int		key_released(int key)
 {
 	if (key == KEY_8 || key == KEY_UP)
-		g_walk_direction = 0;
+		g_walk_direct = 0;
 	if (key == KEY_2 || key == KEY_DOWN)
-		g_walk_direction = 0;
+		g_walk_direct = 0;
 	if (key == KEY_4 || key == KEY_LEFT)
 		g_turn_direction = 0;
 	if (key == KEY_6 || key == KEY_RIGHT)

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   later.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 15:19:36 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 14:07:43 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 18:47:03 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/cub3d.h"
 
 void	draw_player(int x0, int y0, int radius)
 {
@@ -52,5 +54,15 @@ void	draw_player(int x0, int y0, int radius)
 		}
 	}
 }
-//draw_player(g_player.x * MINI, g_player.y * MINI, 5* MINI);
 
+void	print_map(void)
+{
+	int i;
+
+	i = 0;
+	while (g_map[i])
+	{
+		printf("%s\n", g_map[i]);
+		i++;
+	}
+}

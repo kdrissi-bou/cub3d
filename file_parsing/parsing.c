@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 16:18:51 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 17:21:02 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	parsing(int argc, char **argv)
 	ft_lst_clear(&g_file);
 	if (close(fd) == -1)
 		error("Error:\n something went wrong! could not close file!", NULL);
-
 }
 
 void	line_checker(char *line)

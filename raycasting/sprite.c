@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:18:25 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 13:57:48 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 18:51:29 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ void	render_sprite(int k, int x_fs, int y_fs, int sp_size)
 	i = -1;
 	while (++i < sp_size)
 	{
-		if (x_fs + i < 0 || x_fs + i > WIN_WIDTH)
+		if (x_fs + i < 0 || x_fs + i > g_inputs->width)
 			continue ;
-		if (x_fs + i < WIN_WIDTH)
+		if (x_fs + i < g_inputs->width)
 			if (g_rays[x_fs + i].distance < g_sprite[k].distance)
 				continue ;
 		j = -1;
 		while (++j < sp_size)
 		{
-			if (y_fs + j < 0 || y_fs + j > WIN_HEIGHT)
+			if (y_fs + j < 0 || y_fs + j > g_inputs->height)
 				continue ;
 			color = g_sp_img.buf[g_sp_img.width * (j * g_sp_img.height
 			/ sp_size) + (i * g_sp_img.width / sp_size)];
@@ -103,10 +103,11 @@ void	sprite_traits(int spt_id)
 		sp_angle -= M_PI * 2;
 	while (sp_angle - g_player.angle < -M_PI)
 		sp_angle += M_PI * 2;
-	sp_size = (WIN_WIDTH / g_sprite[spt_id].distance * TILE_SIZE);
+	sp_size = (g_inputs->width / g_sprite[spt_id].distance * TILE_SIZE);
 	x_of = (sp_angle - g_player.angle) /
-		RAD(60) * WIN_WIDTH + (WIN_WIDTH / 2 - sp_size / 2);
-	y_of = (WIN_HEIGHT / 2 - sp_size / 2);
+		(60 * M_PI / 180) * g_inputs->width + (g_inputs->width /
+		2 - sp_size / 2);
+	y_of = (g_inputs->height / 2 - sp_size / 2);
 	render_sprite(spt_id, x_of, y_of, sp_size);
 }
 

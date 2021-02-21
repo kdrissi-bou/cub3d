@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:01:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 13:44:27 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 18:38:30 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	ft_putchar(char c)
 void	set_angle(char player_pos)
 {
 	if (player_pos == 'N')
-		g_player.angle = RAD(270);
+		g_player.angle = (270 * M_PI / 180);
 	else if (player_pos == 'S')
-		g_player.angle = RAD(90);
+		g_player.angle = (90 * M_PI / 180);
 	else if (player_pos == 'W')
-		g_player.angle = RAD(180);
+		g_player.angle = (180 * M_PI / 180);
 	else if (player_pos == 'E')
-		g_player.angle = RAD(360);
+		g_player.angle = (360 * M_PI / 180);
 }
 
 void	init(void)

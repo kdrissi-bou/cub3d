@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:25:21 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 16:26:37 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 18:35:32 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	write_headers(int fd)
 	unsigned int	ppm;
 
 	ppm = 96 * 39.375;
-	size = WIN_HEIGHT * WIN_WIDTH * 3;
+	size = g_inputs->height * g_inputs->width * 3;
 	img_size = size + 54;
 	write(fd, "BM", 2);
 	write(fd, &img_size, 4);
@@ -45,8 +45,8 @@ static void	write_headers(int fd)
 	write_uint16(fd, 0);
 	write_uint32(fd, 54);
 	write_uint32(fd, 40);
-	write_uint32(fd, (unsigned int)WIN_WIDTH);
-	write_uint32(fd, (unsigned int)WIN_HEIGHT);
+	write_uint32(fd, (unsigned int)g_inputs->width);
+	write_uint32(fd, (unsigned int)g_inputs->height);
 	write_uint16(fd, 1);
 	write_uint16(fd, 24);
 	write_uint32(fd, 0);
@@ -68,11 +68,11 @@ void		screen(void)
 		exit(-1);
 	loop_key();
 	write_headers(fd);
-	y = WIN_HEIGHT - 1;
+	y = g_inputs->height - 1;
 	while (y > -1)
 	{
 		x = 0;
-		while (x < WIN_WIDTH)
+		while (x < g_inputs->width)
 		{
 			pixel = (int *)(g_img.addr + (y * g_img.line_length + x *
 			(g_img.bits_per_pixel / 8)));
