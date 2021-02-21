@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_floor_ceiling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:09:43 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/08 18:39:54 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:12:10 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	store_rgb(char **str, char type)
 		}
 	}
 	else
-		error("error store rgb ", str);
+		error("Error:\n Invalid RGB!", str);
 }
 
 void	get_ceiling(char *line)
@@ -54,10 +54,10 @@ void	get_ceiling(char *line)
 			g_count++;
 		}
 		else
-			error("error", str);
+			error("Error:\n Error in ceiling!", str);
 	}
 	else
-		error("error duplicate ceiling", NULL);
+		error("Error:\n  duplicate ceiling", NULL);
 }
 
 void	get_flooring(char *line)
@@ -79,8 +79,8 @@ void	get_flooring(char *line)
 			g_count++;
 		}
 		else
-			error("error", str);
+			error("Error:\n error in flooring", str);
 	}
 	else
-		error("error duplicate ceiling", NULL);
+		error("Error:\n duplicate flooring", NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 15:13:01 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 13:08:41 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:09:23 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int g_save;
 void	check_args_number(int argc)
 {
 	if (argc < 2 || argc > 3)
-		error("Error: Invalid  number of arguments!", NULL);
+		error("Error:\n Invalid  number of arguments!", NULL);
 }
 
 void	check_extension(char *argv)
 {
 	if ((ft_strncmp(ft_strrchr(argv, '.'), ".cub", 5)))
-		error("Error: Invalid extension!", NULL);
+		error("Error:\n Invalid extension!", NULL);
 }
 
 void	check_second_arg(int argc, char *argv)
@@ -33,7 +33,7 @@ void	check_second_arg(int argc, char *argv)
 		if (!ft_strncmp(argv, "--save", 7))
 			g_save = 1;
 		else
-			error("Error: Invalid second argument!", NULL);
+			error("Error:\n Invalid second argument!", NULL);
 	}
 }
 

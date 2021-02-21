@@ -1,4 +1,4 @@
-R 2147483648 1000
+R 4294967294 1000
 NO ./textures/colorstone.xpm
 SO ./textures/mossy.xpm
 WE ./textures/eagle.xpm

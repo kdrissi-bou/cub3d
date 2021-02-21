@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/07 22:26:37 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:18:51 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parsing(int argc, char **argv)
 	args_checker(argc, argv);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		error("Error: something went wrong!", NULL);
+		error("Error:\n something went wrong! could not open file!", NULL);
 	line = NULL;
 	while (n != 0)
 	{
@@ -31,9 +31,12 @@ void	parsing(int argc, char **argv)
 		line_checker(line);
 	}
 	if (g_count != 8)
-		error("ERROR WRONG NUMBER OF INPUTS", NULL);
+		error("Error:\nWRONG NUMBER OF INPUTS", NULL);
 	map_treatment();
 	ft_lst_clear(&g_file);
+	if (close(fd) == -1)
+		error("Error:\n something went wrong! could not close file!", NULL);
+
 }
 
 void	line_checker(char *line)
@@ -57,5 +60,5 @@ void	line_checker(char *line)
 	else if (line_is_empty(line) || map_first_digit(line))
 		return ;
 	else
-		error("error line_checker", NULL);
+		error("Error:\n Invalid identifier!", NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:18 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/09 19:55:10 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:13:03 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	map_size(void)
 				g_columns = ft_strlen(temp->content);
 		}
 		else
-			error("error map_size\n", NULL);
+			error("Error:\nsomething wrong in the map!\n", NULL);
 		temp = temp->next;
 	}
 	g_columns += 2;
@@ -52,7 +52,7 @@ void	map_filling(void)
 
 	i = 1;
 	if (!(g_map = (char **)malloc(sizeof(char *) * (g_rows + 1))))
-		error("error map_second_init maloc", NULL);
+		error("Error:\nerror map_second_init maloc", NULL);
 	spacer();
 	while (g_head)
 	{
@@ -94,7 +94,7 @@ void	map_errors(void)
 		}
 	}
 	if (p != 1)
-		error("error invalid number of players!\n", NULL);
+		error("Error:\nerror invalid number of players!\n", NULL);
 }
 
 void	map_treatment(void)

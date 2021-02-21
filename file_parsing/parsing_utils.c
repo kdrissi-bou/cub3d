@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:37:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/08 18:18:45 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:16:09 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_comma(char *line)
 		if (line[i] == ',')
 			j++;
 		if (j > 2)
-			error("error: check_comma\n", NULL);
+			error("Error:\n error in rgb!\n", NULL);
 		i++;
 	}
 }
@@ -69,7 +69,7 @@ int		line_is_digit(char **line)
 		while (line[i][j])
 		{
 			if (!ft_isdigit(line[i][j]))
-				error(" error line_is_digit", line);
+				error("Error:\n not a digit", line);
 			j++;
 		}
 		i++;
