@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:08:32 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 00:40:20 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 13:44:27 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,22 @@ void	error(char *err_msg, char **str)
 	ft_putstr_fd(err_msg, 2);
 	exit(-1);
 }
+
 void	free_texture(void)
 {
-	if(g_mlx.mlx )
+	if (g_mlx.mlx)
 	{
-		if (g_north.ptr)
-			mlx_destroy_image(g_mlx.mlx, g_north.ptr);
-		if (g_south.ptr)
-			mlx_destroy_image(g_mlx.mlx, g_south.ptr);
-		if (g_west.ptr)
-			mlx_destroy_image(g_mlx.mlx, g_west.ptr);
-		if (g_east.ptr)
-			mlx_destroy_image(g_mlx.mlx, g_east.ptr);
+		if (g_no.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_no.ptr);
+		if (g_so.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_so.ptr);
+		if (g_we.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_we.ptr);
+		if (g_ea.ptr)
+			mlx_destroy_image(g_mlx.mlx, g_ea.ptr);
 	}
 }
+
 void	clean_up(void)
 {
 	free(g_inputs->no);

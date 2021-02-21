@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:01:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 00:28:35 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 13:44:27 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,28 @@ void	init(void)
 	g_inputs->so = NULL;
 	g_inputs->no = NULL;
 	g_inputs->s = NULL;
-	g_north.ptr = NULL;
-	g_south.ptr = NULL;
-	g_west.ptr = NULL;
-	g_east.ptr = NULL;
+	g_no.ptr = NULL;
+	g_so.ptr = NULL;
+	g_we.ptr = NULL;
+	g_ea.ptr = NULL;
 	g_sp_img.ptr = NULL;
 	g_rays = NULL;
 	g_mlx.mlx = NULL;
 	g_columns = 0;
 	g_rows = 2;
 	g_map = NULL;
+}
+
+int		has_wall_at(float x, float y)
+{
+	int		mapx;
+	int		mapy;
+
+	mapx = floor(x / TILE_SIZE);
+	mapy = floor(y / TILE_SIZE);
+	if (mapx < 0 || mapx > COLUMNS || mapy < 0 || mapy > ROWS)
+		return (1);
+	if (g_map[mapy][mapx] == '1')
+		return (1);
+	return (0);
 }

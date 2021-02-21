@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   later.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 15:19:36 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/19 15:20:33 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 14:07:43 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	draw_player(int x0, int y0, int radius)
 	{
 		while (i <= x0 + x)
 		{
-			my_mlx_pixel_put(&g_img, i, y0 + y, 0xFFFF00);
-			my_mlx_pixel_put(&g_img, i, y0 - y, 0xFFFF00);
+			put_pixel(&g_img, i, y0 + y, 0xFFFF00);
+			put_pixel(&g_img, i, y0 - y, 0xFFFF00);
 			i++;
 		}
 		while (j <= x0 + y)
 		{
-			my_mlx_pixel_put(&g_img, i, y0 + x, 0xFFFF00);
-			my_mlx_pixel_put(&g_img, i, y0 - x, 0xFFFF00);
+			put_pixel(&g_img, i, y0 + x, 0xFFFF00);
+			put_pixel(&g_img, i, y0 - x, 0xFFFF00);
 			j++;
 		}
 		y++;
@@ -52,4 +52,5 @@ void	draw_player(int x0, int y0, int radius)
 		}
 	}
 }
-draw_player(g_player.x * MINI, g_player.y * MINI, 5* MINI);
+//draw_player(g_player.x * MINI, g_player.y * MINI, 5* MINI);
+

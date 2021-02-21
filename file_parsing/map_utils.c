@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 16:24:31 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/08 22:58:05 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 13:07:55 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ void	spacer(void)
 		i++;
 	}
 }
+
 void	print_map(void)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (g_map[i])
 	{
-		printf("%s\n",g_map[i]);
+		printf("%s\n", g_map[i]);
 		i++;
 	}
 }

@@ -19,6 +19,7 @@ file_parsing/parsing_utils.c\
 file_parsing/plombier.c\
 raycasting/sprite.c\
 raycasting/screen.c\
+raycasting/draw_floor_ceiling.c\
 
 
 

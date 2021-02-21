@@ -6,101 +6,13 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 23:07:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 00:41:47 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 14:18:27 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int		has_wall_at(float x, float y)
-{
-	int		mapX;
-	int		mapY;
 
-	mapX  = floor(x  / TILE_SIZE) ;
-	mapY  = floor(y /TILE_SIZE);
-	if(mapX < 0 || mapX > COLUMNS || mapY < 0 || mapY > ROWS)
-		return (1);
-	if(g_map[mapY][mapX] == '1')
-		return (1);
-	return (0);
-}
-
-void	draw_ceiling(int i, int	top)
-{
-	int	color;
-	color = rgb_to_int(g_inputs->c.red,g_inputs->c.green,g_inputs->c.blue);
-	draw_line(i,0,i,top,color);
-
-}
-
-void	draw_flooring(int i, int bottom)
-{
-	int	color;
-	color = rgb_to_int(g_inputs->f.red,g_inputs->f.green,g_inputs->f.blue);
-	draw_line(i,bottom,i,WIN_HEIGHT,color);
-
-}
-
-int		rgb_to_int(int r, int g, int b)
-{
-	return ((r * (256 * 256)) + (g * (256)) + (b));
-}
-
-void	render_walls(void)
-{
-	int		wall_height;
-	float	distance_plane;
-	int		wall_top_pixel;
-	int		wall_bottom_pixel;
-	float	perp_distance;
-	int 	i;
-
-	i = 0;
-	distance_plane = (WIN_WIDTH / 2) / tan(FOV_ANGLE / 2);
-	while (i < WIN_WIDTH)
-	{
-		perp_distance = g_rays[i].distance * cosf(g_rays[i].ray_angle - g_player.angle);
-		wall_height = (int)((TILE_SIZE / perp_distance) * distance_plane);
-		wall_top_pixel = (WIN_HEIGHT / 2) - (wall_height / 2);
-		wall_top_pixel = wall_top_pixel < 0 ? 0 : wall_top_pixel;
-		wall_bottom_pixel = (WIN_HEIGHT / 2) + (wall_height / 2);
-		wall_bottom_pixel = wall_bottom_pixel > WIN_HEIGHT ? WIN_HEIGHT : wall_bottom_pixel;
-		draw_ceiling(i,wall_top_pixel);
-		draw_wall(i, wall_top_pixel, wall_height);
-		draw_flooring(i,wall_bottom_pixel);
-		i++;
-	}
-}
-
-void	draw_wall(int i, int top_pixel, int wall_height)
-{
-	int		y;
-	int		dis_from_top;
-	int		offset_x;
-	int		offset_y;
-	y = top_pixel;
-	
-	offset_x = g_rays[i].was_hit_vert ? (int)g_rays[i].wall_hit_y % TILE_SIZE : (int)g_rays[i].wall_hit_x % TILE_SIZE;
-	while (y < (top_pixel + wall_height))
-	{
-		dis_from_top = y + (wall_height / 2) - (WIN_HEIGHT / 2);
-		offset_y = dis_from_top * ((float)TEX_HEIGHT / wall_height);
-		if ((i >= 0 && i < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT))
-		{
-			if (g_rays[i].up && !g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y, g_south.buffer[(g_south.width * offset_y) + offset_x]);	
-			else if (g_rays[i].down && !g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y, g_north.buffer[(g_north.width * offset_y) + offset_x]); 
-			else if (g_rays[i].right && g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y,g_west.buffer[(g_west.width * offset_y) + offset_x]); 
-			else if (g_rays[i].left && g_rays[i].was_hit_vert)
-				my_mlx_pixel_put(&g_img, i, y,g_east.buffer[(g_east.width* offset_y) + offset_x]); 
-		}
-		y++;
-	}
-}
-	
 void	cast_rays(void)
 {
 	float	ray_angle;
@@ -151,6 +63,7 @@ int		loop_key(void)
 	}
 	return (0);
 }
+
 void	game(void)
 {
 	mlx_struct_init();

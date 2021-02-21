@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:18:25 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 00:04:45 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 13:57:48 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,10 @@ void	render_sprite(int k, int x_fs, int y_fs, int sp_size)
 		{
 			if (y_fs + j < 0 || y_fs + j > WIN_HEIGHT)
 				continue ;
-			color = g_sp_img.buffer[g_sp_img.width * (j * g_sp_img.height / sp_size) + (i * g_sp_img.width/ sp_size)];
+			color = g_sp_img.buf[g_sp_img.width * (j * g_sp_img.height
+			/ sp_size) + (i * g_sp_img.width / sp_size)];
 			if (color)
-				my_mlx_pixel_put(&g_img, x_fs + i, y_fs + j, color);
+				put_pixel(&g_img, x_fs + i, y_fs + j, color);
 		}
 	}
 }
@@ -92,8 +93,8 @@ void	render_sprite(int k, int x_fs, int y_fs, int sp_size)
 void	sprite_traits(int spt_id)
 {
 	float	sp_angle;
-	float	x_offset;
-	float	y_offset;
+	float	x_of;
+	float	y_of;
 	float	sp_size;
 
 	sp_angle = atan2(-g_player.y + (g_sprite[spt_id].y),
@@ -103,10 +104,10 @@ void	sprite_traits(int spt_id)
 	while (sp_angle - g_player.angle < -M_PI)
 		sp_angle += M_PI * 2;
 	sp_size = (WIN_WIDTH / g_sprite[spt_id].distance * TILE_SIZE);
-	x_offset = (sp_angle - g_player.angle) /
+	x_of = (sp_angle - g_player.angle) /
 		RAD(60) * WIN_WIDTH + (WIN_WIDTH / 2 - sp_size / 2);
-	y_offset = (WIN_HEIGHT / 2 - sp_size / 2);
-	render_sprite(spt_id, x_offset, y_offset, sp_size);
+	y_of = (WIN_HEIGHT / 2 - sp_size / 2);
+	render_sprite(spt_id, x_of, y_of, sp_size);
 }
 
 void	ft_sprite(void)

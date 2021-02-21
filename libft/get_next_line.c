@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/29 14:28:50 by kdrissi-          #+#    #+#             */
-/*   Updated: 2020/12/21 23:24:09 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 13:50:44 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int		get_next_line(int fd, char **line)
 	int			i;
 	static char	*holder[ULIMIT];
 
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, buf, 0) < 0)
+	buf = (char *)malloc(sizeof(char) * (buf_SIZE + 1));
+	if (buf_SIZE <= 0 || fd < 0 || read(fd, buf, 0) < 0)
 		return (-1);
 	if (gnl_ft_strchr(holder[fd], '\n'))
 		return (holder_cleaner(&holder[fd], line, &buf));
-	while ((i = read(fd, buf, BUFFER_SIZE)) > 0)
+	while ((i = read(fd, buf, buf_SIZE)) > 0)
 	{
 		buf[i] = '\0';
 		holder_filler(&holder[fd], &buf);

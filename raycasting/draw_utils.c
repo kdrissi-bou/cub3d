@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:52:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/19 15:19:58 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 14:12:02 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+static int		g_i;
+static int		g_dx;
+static int		g_dy;
+
+void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -21,34 +25,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 		dst = img->addr + (y * img->line_length + x *
 		(img->bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
-	}
-}
-
-void	draw_line(int x0, int y0, int x1, int y1, int color)
-{
-	int		dx;
-	int		dy;
-	int		steps;
-	float	xinc;
-	float	yinc;
-	float	xin;
-	float	yin;
-	int		i;
-
-	dx = x1 - x0;
-	dy = y1 - y0;
-	steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-	xinc = dx / (float)steps;
-	yinc = dy / (float)steps;
-	xin = x0;
-	yin = y0;
-	i = 0;
-	while (i < steps)
-	{
-		my_mlx_pixel_put(&g_img, xin, yin, color);
-		xin += xinc;
-		yin += yinc;
-		i++;
 	}
 }
 
@@ -67,7 +43,7 @@ void	draw_square(int width, int height, int x, int y)
 		j = 0;
 		while (j <= width)
 		{
-			my_mlx_pixel_put(&g_img, k, y, 0xFFFFFF);
+			put_pixel(&g_img, k, y, 0xFFFFFF);
 			k++;
 			j++;
 		}
@@ -99,5 +75,30 @@ void	draw_map(void)
 		mx = 0;
 		my += TILE_SIZE * MINI;
 		i++;
+	}
+}
+
+void	draw_line(int x0, int y0, int x1, int y1, int color)
+{
+	int		steps;
+	float	xinc;
+	float	yinc;
+	float	xin;
+	float	yin;
+
+	g_dx = x1 - x0;
+	g_dy = y1 - y0;
+	steps = abs(g_dx) > abs(g_dy) ? abs(g_dx) : abs(g_dy);
+	xinc = g_dx / (float)steps;
+	yinc = g_dy / (float)steps;
+	xin = x0;
+	yin = y0;
+	g_i = 0;
+	while (g_i < steps)
+	{
+		put_pixel(&g_img, xin, yin, color);
+		xin += xinc;
+		yin += yinc;
+		g_i++;
 	}
 }

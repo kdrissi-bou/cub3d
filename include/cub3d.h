@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/20 23:57:51 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 14:05:10 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct 		s_rgb
 	int				blue; 
 }					t_rgb;
 
-
 typedef	struct s_cub3d
 {
 	int				height;
@@ -86,7 +85,7 @@ typedef struct	s_player
 typedef struct	s_tex
 {
 	void		*ptr;
-	int			*buffer;
+	int			*buf;
 	int			width;
 	int			height;
 	int			bpp;
@@ -129,7 +128,6 @@ typedef struct s_ray {
 	float	vert_distance;
 	int 	content;
 }			t_ray;
-
 typedef struct	s_rays
 {
 	float		ray_angle;
@@ -142,7 +140,6 @@ typedef struct	s_rays
 	int			right;
 	int			was_hit_vert;
 }				t_rays;
-
 typedef struct	s_sprite
 {
 	void		*ptr;
@@ -156,13 +153,10 @@ typedef struct	s_sprite
 	float		y;
 	float		distance;
 }				t_sprite;
-
-
-
 typedef struct	s_bitmap
 {
 	unsigned int	file_size;
-	unsigned int	pd_offset;
+	unsigned int	pd_of;
 	unsigned int	header_size;
 	unsigned int	image_width;
 	unsigned int	image_height;
@@ -171,9 +165,6 @@ typedef struct	s_bitmap
 	unsigned short	bpp;
 	int				width_in_bytes;
 }				t_bitmap;
-
-
-
 t_mlx		g_mlx;
 t_player	g_player;
 t_img		g_img;
@@ -189,15 +180,13 @@ int			g_turn_direction;
 t_ray		g_ray;
 t_rays		*g_rays;
 int			g_sprite_count;
-t_tex		g_south;
-t_tex		g_north;
-t_tex		g_east;
-t_tex		g_west;
+t_tex		g_so;
+t_tex		g_no;
+t_tex		g_ea;
+t_tex		g_we;
 t_sprite	*g_sprite;
 t_tex		g_sp_img;
 
-
-// FUNCTION PROTOTYPES
 void	draw_square(int width, int height, int x, int y);
 int		buttons(int key, void *param);
 void	draw_map(void);
@@ -247,7 +236,7 @@ void	init(void);
 void	player_init(void);
 void	mlx_struct_init(void);
 float	normalize_angle(float angle);
-void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void    put_pixel(t_img *img, int x, int y, int color);
 void	init_rays(void);
 void	set_angle(char player_pos);
 void	init_player(void);
@@ -270,4 +259,6 @@ void    sprite_traits(int spt_id);
 void	screen(void);
 int     loop_key(void);
 int		exit_success(void);
+void	render_walls(void);
+
 #endif

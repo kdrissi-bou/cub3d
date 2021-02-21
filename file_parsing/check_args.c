@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 15:13:01 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 00:33:49 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 13:08:41 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_extension(char *argv)
 
 void	check_second_arg(int argc, char *argv)
 {
-	if (argc == 3 )
+	if (argc == 3)
 	{
 		if (!ft_strncmp(argv, "--save", 7))
 			g_save = 1;

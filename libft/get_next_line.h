@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:59:28 by kdrissi-          #+#    #+#             */
-/*   Updated: 2020/12/21 23:24:09 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/21 13:50:44 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define ULIMIT 1024
 # include <stdlib.h>
 # include <unistd.h>
-# define BUFFER_SIZE 12
+# define buf_SIZE 12
 int		get_next_line(int fd, char **line);
 char	*gnl_ft_memcpy(char *dst, char *src, size_t n);
 char	*join(char *s1, char *s2);

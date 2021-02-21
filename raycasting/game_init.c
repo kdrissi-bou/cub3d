@@ -6,7 +6,7 @@
 /*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:17:13 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 00:42:03 by drissi           ###   ########.fr       */
+/*   Updated: 2021/02/21 13:58:31 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	init_sprite(void)
 {
 	if (!(g_sprite = malloc(sizeof(t_sprite) * (g_sprite_count + 1))))
 		return ;
-	if (!(g_sp_img.ptr= mlx_xpm_file_to_image(g_mlx.mlx,g_inputs->s,
+	if (!(g_sp_img.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->s,
 	&g_sp_img.width, &g_sp_img.height)))
 		return (error("Error\nTexture file not found!\n", NULL));
-	g_sp_img.buffer = (int *)mlx_get_data_addr(g_sp_img.ptr,
+	g_sp_img.buf = (int *)mlx_get_data_addr(g_sp_img.ptr,
 	&g_sp_img.bpp,
 	&g_sp_img.size_line,
 	&g_sp_img.endian);
@@ -33,26 +33,26 @@ void	init_sprite(void)
 
 void	init_texture(void)
 {
-	if (!(g_north.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->no,
-	&g_north.width, &g_north.height)))
+	if (!(g_no.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->no,
+	&g_no.width, &g_no.height)))
 		return (error("Error\nTexture file not found!\n", NULL));
-	g_north.buffer = (int *)mlx_get_data_addr(g_north.ptr, &g_north.bpp,
-	&g_north.size_line, &g_north.endian);
-	if (!(g_south.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->so,
-	&g_south.width, &g_south.height)))
+	g_no.buf = (int *)mlx_get_data_addr(g_no.ptr, &g_no.bpp,
+	&g_no.size_line, &g_no.endian);
+	if (!(g_so.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->so,
+	&g_so.width, &g_so.height)))
 		return (error("Error\nTexture file not found!\n", NULL));
-	g_south.buffer = (int *)mlx_get_data_addr(g_south.ptr, &g_south.bpp,
-	&g_south.size_line, &g_south.endian);
-	if (!(g_west.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->we,
-	&g_west.width, &g_west.height)))
+	g_so.buf = (int *)mlx_get_data_addr(g_so.ptr, &g_so.bpp,
+	&g_so.size_line, &g_so.endian);
+	if (!(g_we.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->we,
+	&g_we.width, &g_we.height)))
 		return (error("Error\nTexture file not found!\n", NULL));
-	g_west.buffer = (int *)mlx_get_data_addr(g_west.ptr, &g_west.bpp,
-	&g_west.size_line, &g_west.endian);
-	if (!(g_east.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->ea,
-	&g_east.width, &g_east.height)))
+	g_we.buf = (int *)mlx_get_data_addr(g_we.ptr, &g_we.bpp,
+	&g_we.size_line, &g_we.endian);
+	if (!(g_ea.ptr = mlx_xpm_file_to_image(g_mlx.mlx, g_inputs->ea,
+	&g_ea.width, &g_ea.height)))
 		return (error("Error\nTexture file not found!\n", NULL));
-	g_east.buffer = (int *)mlx_get_data_addr(g_east.ptr, &g_east.bpp,
-	&g_east.size_line, &g_east.endian);
+	g_ea.buf = (int *)mlx_get_data_addr(g_ea.ptr, &g_ea.bpp,
+	&g_ea.size_line, &g_ea.endian);
 }
 
 void	init_player(void)
