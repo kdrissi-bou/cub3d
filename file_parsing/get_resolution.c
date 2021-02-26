@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 14:57:28 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 16:14:27 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/26 16:25:26 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_resolution(char *line)
 	{
 		str = ft_split(line + 1, ' ');
 		if (line_is_digit(str) != 2)
-			error("Error: Wrong resolution!", str);
+			error("Error:\n Wrong resolution!", str);
 		else
 		{
 			g_inputs->width = ft_atoi(str[0]);

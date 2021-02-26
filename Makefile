@@ -28,12 +28,12 @@ LIBFT = ./libft/libft.a
 INCLUDE = -I ./libft/libft.h -I ./include/cub3d.h -I /usr/local/include
 
 GCC = gcc -Wall -Werror -Wextra
-GCCSANITIZE =  gcc -Wall -Werror -Wextra  -g3 -fsanitize=address 
+GCCSANITIZE =  gcc -Wall -Werror -Wextra  -g3 -fsanitize=address
 MLXMAC =  -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit 
 MLXLINUX = -lmlx -lX11 -lXext -lbsd -lm
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRCS)
 	make -C libft
 	$(GCC) $(INCLUDE)  $(SRCS) $(LIBFT) $(MLXMAC) -o $(NAME) 
 
@@ -44,12 +44,13 @@ linux:
 	make linux -C libft
 	$(GCC)  $(SRCS) $(LIBFT) $(MLXLINUX) -o $(NAME)
 
-sanitize:
+a:
 	make -C libft
 	$(GCCSANITIZE)  $(SRCS) $(LIBFT) $(MLXMAC) -o $(NAME) 
 
 fclean: clean
 	make fclean -C libft
+	/bin/rm -rf $(NAME).dSYM
 	/bin/rm -rf $(NAME)
 
 re: fclean all

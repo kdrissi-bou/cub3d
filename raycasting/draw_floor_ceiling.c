@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:32:25 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 18:46:37 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:51:14 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ void	draw_wall(int i, int top_pixel, int wall_height)
 			if (g_rays[i].up && !g_rays[i].was_hit_vert)
 				put_pixel(&g_img, i, y, g_so.buf[(g_so.width * of_y) + of_x]);
 			else if (g_rays[i].down && !g_rays[i].was_hit_vert)
-				put_pixel(&g_img, i, y, g_no.buf[(g_no.width * of_y) + of_x]);
+				{
+					printf(">>>>>>>\n");
+					put_pixel(&g_img, i, y, g_no.buf[(g_no.width * of_y) + of_x]);
+					printf("%d\n", (g_no.width * of_y) + of_x);
+				}
 			else if (g_rays[i].right && g_rays[i].was_hit_vert)
 				put_pixel(&g_img, i, y, g_we.buf[(g_we.width * of_y) + of_x]);
 			else if (g_rays[i].left && g_rays[i].was_hit_vert)
@@ -76,24 +80,30 @@ void	draw_wall(int i, int top_pixel, int wall_height)
 
 void	render_walls(void)
 {
-	int		wall_height;
+	float		wall_height;
 	float	distance_plane;
-	int		wall_top_pixel;
-	int		wall_bottom_pixel;
+	float		wall_top_pixel;
+	float		wall_bottom_pixel;
 	float	perp_distance;
+	t_line	line;
 
 	g_i = 0;
 	distance_plane = (g_inputs->width / 2) / tan((60 * (M_PI / 180)) / 2);
 	while (g_i < g_inputs->width)
 	{
 		perp_distance = g_rays[g_i].distance *
-		cosf(g_rays[g_i].ray_angle - g_player.angle);
+		cos(g_rays[g_i].ray_angle - g_player.angle);
 		wall_height = (int)((TILE_SIZE / perp_distance) * distance_plane);
 		wall_top_pixel = (g_inputs->height / 2) - (wall_height / 2);
 		wall_top_pixel = wall_top_pixel < 0 ? 0 : wall_top_pixel;
 		wall_bottom_pixel = (g_inputs->height / 2) + (wall_height / 2);
 		wall_bottom_pixel = wall_bottom_pixel > g_inputs->height ?
 		g_inputs->height : wall_bottom_pixel;
+		line.x0 = g_i;
+		line.x1 = g_i;
+		line.y0 = wall_top_pixel;
+		line.y1 = wall_bottom_pixel;
+		line.color = 0xFFEE;
 		draw_ceiling(g_i, wall_top_pixel);
 		draw_wall(g_i, wall_top_pixel, wall_height);
 		draw_flooring(g_i, wall_bottom_pixel);

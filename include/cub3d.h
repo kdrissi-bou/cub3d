@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 18:48:21 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:28:47 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <limits.h>
 # include "../libft/libft.h"
 # include "keys.h"
+# include <stdio.h>
 
 # define ROWS g_rows
 # define COLUMNS g_columns

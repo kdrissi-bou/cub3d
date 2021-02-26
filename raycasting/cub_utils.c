@@ -6,7 +6,7 @@
 /*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:01:12 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/21 18:38:30 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/26 16:34:47 by kdrissi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ int		has_wall_at(float x, float y)
 
 	mapx = floor(x / TILE_SIZE);
 	mapy = floor(y / TILE_SIZE);
-	if (mapx < 0 || mapx > COLUMNS || mapy < 0 || mapy > ROWS)
+	// printf("%d %d\n", mapx, mapy);
+	if (mapx < 0 || mapx  > COLUMNS || mapy < 0 || mapy > ROWS)
 		return (1);
-	if (g_map[mapy][mapx] == '1')
+if (g_map[mapy][mapx] == '1' || g_map[mapy][mapx] == ' ')
 		return (1);
 	return (0);
 }
