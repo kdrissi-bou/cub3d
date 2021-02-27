@@ -3,41 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor_ceiling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 13:32:25 by drissi            #+#    #+#             */
-/*   Updated: 2021/02/26 17:51:14 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/27 00:42:36 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int g_i;
+static int	g_i;
+static int	g_y;
 
 void	draw_ceiling(int i, int top)
 {
-	t_line	line;
+	int	color;
 
-	line.color = rgb_to_int(g_inputs->c.red, g_inputs->c.green,
+	g_y = 0;
+	color = rgb_to_int(g_inputs->c.red, g_inputs->c.green,
 	g_inputs->c.blue);
-	line.x0 = i;
-	line.y0 = 0;
-	line.x1 = i;
-	line.y1 = top;
-	draw_line(line);
+	while(g_y < top)
+	{
+		put_pixel(i,g_y,color);
+		g_y++;
+	}
+
 }
 
 void	draw_flooring(int i, int bottom)
 {
-	t_line	line;
-
-	line.color = rgb_to_int(g_inputs->f.red, g_inputs->f.green,
+	int	color;
+	
+	color = rgb_to_int(g_inputs->f.red, g_inputs->f.green,
 	g_inputs->f.blue);
-	line.x0 = i;
-	line.y0 = bottom;
-	line.x1 = i;
-	line.y1 = g_inputs->height;
-	draw_line(line);
+	g_y = bottom;
+	while(g_y < g_inputs->height)
+	{
+		put_pixel(i,g_y,color);
+		g_y++;
+	}
 }
 
 int		rgb_to_int(int r, int g, int b)
@@ -47,45 +51,40 @@ int		rgb_to_int(int r, int g, int b)
 
 void	draw_wall(int i, int top_pixel, int wall_height)
 {
-	int		y;
 	int		dis_from_top;
 	int		of_x;
 	int		of_y;
 
-	y = top_pixel;
+	g_y = top_pixel;
 	of_x = g_rays[i].was_hit_vert ? (int)g_rays[i].wall_hit_y % TILE_SIZE :
 	(int)g_rays[i].wall_hit_x % TILE_SIZE;
-	while (y < (top_pixel + wall_height))
+	while (g_y < (top_pixel + wall_height))
 	{
-		dis_from_top = y + (wall_height / 2) - (g_inputs->height / 2);
+		dis_from_top = g_y + (wall_height / 2) - (g_inputs->height / 2);
 		of_y = dis_from_top * ((float)TEX_HEIGHT / wall_height);
-		if ((i >= 0 && i < g_inputs->width && y >= 0 && y < g_inputs->height))
+		if ((TEX_WIDTH * of_y + of_x) > 0)
 		{
 			if (g_rays[i].up && !g_rays[i].was_hit_vert)
-				put_pixel(&g_img, i, y, g_so.buf[(g_so.width * of_y) + of_x]);
+				put_pixel( i, y, g_so.buf[(g_so.width * of_y) + of_x]);
 			else if (g_rays[i].down && !g_rays[i].was_hit_vert)
-				{
-					printf(">>>>>>>\n");
-					put_pixel(&g_img, i, y, g_no.buf[(g_no.width * of_y) + of_x]);
-					printf("%d\n", (g_no.width * of_y) + of_x);
-				}
+					put_pixel( i, y, g_no.buf[(g_no.width * of_y) + of_x]);
 			else if (g_rays[i].right && g_rays[i].was_hit_vert)
-				put_pixel(&g_img, i, y, g_we.buf[(g_we.width * of_y) + of_x]);
+				put_pixel( i, y, g_we.buf[(g_we.width * of_y) + of_x]);
 			else if (g_rays[i].left && g_rays[i].was_hit_vert)
-				put_pixel(&g_img, i, y, g_ea.buf[(g_ea.width * of_y) + of_x]);
+				put_pixel( i, y, g_ea.buf[(g_ea.width * of_y) + of_x]);
 		}
-		y++;
+		put_pixel( i, g_y, g_ea.buf[(g_ea.width * of_y) + of_x]);
+		g_y++;
 	}
 }
 
 void	render_walls(void)
 {
 	float		wall_height;
-	float	distance_plane;
+	float		distance_plane;
 	float		wall_top_pixel;
 	float		wall_bottom_pixel;
-	float	perp_distance;
-	t_line	line;
+	float		perp_distance;
 
 	g_i = 0;
 	distance_plane = (g_inputs->width / 2) / tan((60 * (M_PI / 180)) / 2);
@@ -93,17 +92,12 @@ void	render_walls(void)
 	{
 		perp_distance = g_rays[g_i].distance *
 		cos(g_rays[g_i].ray_angle - g_player.angle);
-		wall_height = (int)((TILE_SIZE / perp_distance) * distance_plane);
+		wall_height = (TILE_SIZE / perp_distance) * distance_plane;
 		wall_top_pixel = (g_inputs->height / 2) - (wall_height / 2);
 		wall_top_pixel = wall_top_pixel < 0 ? 0 : wall_top_pixel;
-		wall_bottom_pixel = (g_inputs->height / 2) + (wall_height / 2);
+		wall_bottom_pixel = wall_top_pixel + wall_height;
 		wall_bottom_pixel = wall_bottom_pixel > g_inputs->height ?
 		g_inputs->height : wall_bottom_pixel;
-		line.x0 = g_i;
-		line.x1 = g_i;
-		line.y0 = wall_top_pixel;
-		line.y1 = wall_bottom_pixel;
-		line.color = 0xFFEE;
 		draw_ceiling(g_i, wall_top_pixel);
 		draw_wall(g_i, wall_top_pixel, wall_height);
 		draw_flooring(g_i, wall_bottom_pixel);

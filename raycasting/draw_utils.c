@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:52:24 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/26 17:28:43 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/27 00:27:42 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,10 @@ static int		g_i;
 static int		g_dx;
 static int		g_dy;
 
-void	put_pixel(t_img *img, int x, int y, int color)
+void	put_pixel(int x, int y, int color)
 {
-	char	*dst;
-
 	if ((x >= 0 && x < g_inputs->width && y >= 0 && y < g_inputs->height))
-	{
-		dst = img->addr + (y * img->line_length + x *
-		(img->bits_per_pixel / 8));
-		*(unsigned int*)dst = color;
-	}
+		g_img.addr[(x + (y * g_inputs->width))] = color;
 }
 
 void	draw_square(int width, int height, int x, int y)
@@ -43,7 +37,7 @@ void	draw_square(int width, int height, int x, int y)
 		j = 0;
 		while (j <= width)
 		{
-			put_pixel(&g_img, k, y, 0xFFFFFF);
+			put_pixel( k, y, 0xFFFFFF);
 			k++;
 			j++;
 		}
@@ -96,7 +90,7 @@ void	draw_line(t_line line)
 	g_i = 0;
 	while (g_i < steps)
 	{
-		put_pixel(&g_img, xin, yin, line.color);
+		put_pixel( xin, yin, line.color);
 		xin += xinc;
 		yin += yinc;
 		g_i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 22:53:13 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/26 17:28:47 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/27 00:31:54 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 # define ROWS g_rows
 # define COLUMNS g_columns
-# define WALK_SPEED 5
-# define TURN_SPEED 0.03
+# define WALK_SPEED 1
+# define TURN_SPEED 0.04
 # define TRUE 1
 # define FALSE 0
 # define TILE_SIZE 64
@@ -103,7 +103,7 @@ typedef struct		s_tex
 typedef struct		s_img
 {
 	void			*img;
-	char			*addr;
+	int				*addr;
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
@@ -243,7 +243,7 @@ void				init(void);
 void				player_init(void);
 void				mlx_struct_init(void);
 float				normalize_angle(float angle);
-void				put_pixel(t_img *img, int x, int y, int color);
+void				put_pixel(int x, int y, int color);
 void				init_rays(void);
 void				set_angle(char player_pos);
 void				init_player(void);

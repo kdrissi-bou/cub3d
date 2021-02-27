@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrissi- <kdrissi-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drissi <drissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:18:25 by kdrissi-          #+#    #+#             */
-/*   Updated: 2021/02/21 18:51:29 by kdrissi-         ###   ########.fr       */
+/*   Updated: 2021/02/27 00:26:44 by drissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	render_sprite(int k, int x_fs, int y_fs, int sp_size)
 			color = g_sp_img.buf[g_sp_img.width * (j * g_sp_img.height
 			/ sp_size) + (i * g_sp_img.width / sp_size)];
 			if (color)
-				put_pixel(&g_img, x_fs + i, y_fs + j, color);
+				put_pixel( x_fs + i, y_fs + j, color);
 		}
 	}
 }
